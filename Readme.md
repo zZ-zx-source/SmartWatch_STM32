@@ -24,10 +24,16 @@
 - 模块化分层设计
 - 完整的菜单交互系统
 - 多种实用功能（时间管理、游戏、电源管理等）
-
-<p align="center">
-	<img border="1px" width="100%" src="./images/feature.gif">
-    演示效果
+<div align="center">
+    <table>
+        <tr>
+            <td align="center">
+                <img src="./images/effect.gif" width="40%"><br>
+                演示效果(因gif压缩原因会有加速)
+            </td>
+        </tr>
+    </table>
+</div>
 </p>
 <div align="center">
     <table>
@@ -40,26 +46,20 @@
                 <img src="./images/hardware_photo2.jpg" width="100%"><br>
                 菜单界面
             </td>
-        </tr>
-    </table>
-</div>
-<div align="center">
-    <table>
-        <tr>
             <td align="center">
                 <img src="./images/hardware_photo3.jpg" width="100%"><br>
                 时间功能界面
             </td>
-            <td align="center">
-                <img src="./images/hardware_photo4.jpg" width="100%"><br>
-                手电筒界面
-            </td>
         </tr>
     </table>
 </div>
 <div align="center">
     <table>
         <tr>
+            <td align="center">
+                <img src="./images/hardware_photo4.jpg" width="100%"><br>
+                手电筒界面
+            </td>
             <td align="center">
                 <img src="./images/hardware_photo6.jpg" width="100%"><br>
                 游戏功能界面
@@ -71,6 +71,7 @@
         </tr>
     </table>
 </div>
+
 ---
 
 ## 硬件连接
@@ -104,9 +105,6 @@
 
 ### 实物连接图
 
-> 📷 TODO：插入实物照片
->
-> 将你的实物照片命名为 `hardware_photo.jpg`，放在 `images/` 文件夹下，然后替换下面的路径：
 <div align="center">
     <table>
         <tr>
