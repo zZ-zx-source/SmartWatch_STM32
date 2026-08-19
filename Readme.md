@@ -26,20 +26,20 @@
 - 多种实用功能（时间管理、游戏、电源管理等）
 <div align="center">
 <p align="center">
-    <img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/effect.gif?token=GHSAT0AAAAAAEF6PALNXN4AND2BPPLDLH242UE75TA" width="200"><br>
+    <img src="./images/effect.gif" width="200"><br>
     演示效果(因gif压缩原因会有加速)
   </p>
   <br>
   <table>
     <tr>
-      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo1.jpg?token=GHSAT0AAAAAAEF6PALMZUILW7GJOI4OBXRO2UE76KA" width="200"><br>主界面</td>
-      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo2.jpg?token=GHSAT0AAAAAAEF6PALMKDNQHVWM2CNHO2OC2UE764Q" width="200"><br>菜单界面</td>
-      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo3.jpg?token=GHSAT0AAAAAAEF6PALMTQIPDCGG4WXYBD7Q2UE77RA" width="200"><br>时间功能界面</td>
+      <td align="center"><img src="./images/hardware_photo1.jpg" width="200"><br>主界面</td>
+      <td align="center"><img src="./images/hardware_photo2.jpg" width="200"><br>菜单界面</td>
+      <td align="center"><img src="./images/hardware_photo3.jpg" width="200"><br>时间功能界面</td>
     </tr>
     <tr>
-      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo4.jpg?token=GHSAT0AAAAAAEF6PALMTSYRPBWRMVZUPMOE2UFAAAA" width="200"><br>手电筒界面</td>
-      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo6.jpg?token=GHSAT0AAAAAAEF6PALMBJ22AD3LJKAIB6IM2UFABAA" width="200"><br>游戏功能界面</td>
-      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo7.jpg?token=GHSAT0AAAAAAEF6PALNPI67J2M67B7MU75A2UFABTA" width="200"><br>表情包界面</td>
+      <td align="center"><img src="./images/hardware_photo4.jpg" width="200"><br>手电筒界面</td>
+      <td align="center"><img src="./images/hardware_photo6.jpg" width="200"><br>游戏功能界面</td>
+      <td align="center"><img src="./images/hardware_photo7.jpg" width="200"><br>表情包界面</td>
     </tr>
   </table>
 </div>
