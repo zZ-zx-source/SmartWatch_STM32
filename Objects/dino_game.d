@@ -1,4 +1,4 @@
-.\objects\dino_game.o: hardware\dino_game.c
+.\objects\dino_game.o: app\dino_game.c
 .\objects\dino_game.o: .\start\stm32f10x.h
 .\objects\dino_game.o: .\start\core_cm3.h
 .\objects\dino_game.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,10 +28,10 @@
 .\objects\dino_game.o: .\library\stm32f10x_usart.h
 .\objects\dino_game.o: .\library\stm32f10x_wwdg.h
 .\objects\dino_game.o: .\library\misc.h
-.\objects\dino_game.o: hardware\dino_game.h
-.\objects\dino_game.o: hardware\menu.h
-.\objects\dino_game.o: hardware\OLED.h
-.\objects\dino_game.o: hardware\OLED_Data.h
+.\objects\dino_game.o: app\dino_game.h
+.\objects\dino_game.o: app\menu.h
+.\objects\dino_game.o: .\hardware\OLED.h
+.\objects\dino_game.o: .\hardware\OLED_Data.h
 .\objects\dino_game.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\dino_game.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\dino_game.o: F:\keil5\ARM\ARMCC\Bin\..\include\math.h

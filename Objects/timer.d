@@ -31,10 +31,10 @@
 .\objects\timer.o: system\timer.h
 .\objects\timer.o: .\hardware\key.h
 .\objects\timer.o: .\hardware\buzzer.h
-.\objects\timer.o: .\hardware\countdown.h
-.\objects\timer.o: .\hardware\menu.h
-.\objects\timer.o: .\hardware\flashlight.h
-.\objects\timer.o: .\hardware\dino_game.h
-.\objects\timer.o: .\hardware\battery.h
-.\objects\timer.o: .\hardware\motion_wakeup.h
-.\objects\timer.o: .\hardware\emoji.h
+.\objects\timer.o: .\app\countdown.h
+.\objects\timer.o: .\app\menu.h
+.\objects\timer.o: .\app\flashlight.h
+.\objects\timer.o: .\app\dino_game.h
+.\objects\timer.o: .\app\battery.h
+.\objects\timer.o: .\app\motion_wakeup.h
+.\objects\timer.o: .\app\emoji.h

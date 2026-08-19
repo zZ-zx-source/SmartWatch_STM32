@@ -1,4 +1,4 @@
-.\objects\flashlight.o: hardware\flashlight.c
+.\objects\flashlight.o: app\flashlight.c
 .\objects\flashlight.o: .\start\stm32f10x.h
 .\objects\flashlight.o: .\start\core_cm3.h
 .\objects\flashlight.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,7 +28,7 @@
 .\objects\flashlight.o: .\library\stm32f10x_usart.h
 .\objects\flashlight.o: .\library\stm32f10x_wwdg.h
 .\objects\flashlight.o: .\library\misc.h
-.\objects\flashlight.o: hardware\flashlight.h
-.\objects\flashlight.o: hardware\OLED.h
-.\objects\flashlight.o: hardware\OLED_Data.h
-.\objects\flashlight.o: hardware\led.h
+.\objects\flashlight.o: app\flashlight.h
+.\objects\flashlight.o: .\hardware\OLED.h
+.\objects\flashlight.o: .\hardware\OLED_Data.h
+.\objects\flashlight.o: .\hardware\led.h

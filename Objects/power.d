@@ -1,4 +1,4 @@
-.\objects\power.o: hardware\power.c
+.\objects\power.o: app\power.c
 .\objects\power.o: .\start\stm32f10x.h
 .\objects\power.o: .\start\core_cm3.h
 .\objects\power.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,12 +28,12 @@
 .\objects\power.o: .\library\stm32f10x_usart.h
 .\objects\power.o: .\library\stm32f10x_wwdg.h
 .\objects\power.o: .\library\misc.h
-.\objects\power.o: hardware\power.h
-.\objects\power.o: hardware\key.h
-.\objects\power.o: hardware\OLED.h
-.\objects\power.o: hardware\OLED_Data.h
+.\objects\power.o: app\power.h
+.\objects\power.o: .\hardware\key.h
+.\objects\power.o: .\hardware\OLED.h
+.\objects\power.o: .\hardware\OLED_Data.h
 .\objects\power.o: .\system\Delay.h
-.\objects\power.o: hardware\auto_sleep.h
-.\objects\power.o: hardware\menu.h
-.\objects\power.o: hardware\led.h
-.\objects\power.o: hardware\buzzer.h
+.\objects\power.o: app\auto_sleep.h
+.\objects\power.o: app\menu.h
+.\objects\power.o: .\hardware\led.h
+.\objects\power.o: .\hardware\buzzer.h

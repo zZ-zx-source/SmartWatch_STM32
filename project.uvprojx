@@ -336,7 +336,7 @@
               <MiscControls>--no-multibyte-chars</MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\start;.\library;.\system;.\hardware;.\user</IncludePath>
+              <IncludePath>.\start;.\library;.\system;.\hardware;.\app;.\user</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -736,86 +736,6 @@
               <FilePath>.\hardware\OLED_Data.h</FilePath>
             </File>
             <File>
-              <FileName>menu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\menu.c</FilePath>
-            </File>
-            <File>
-              <FileName>menu.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\menu.h</FilePath>
-            </File>
-            <File>
-              <FileName>flashlight.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\flashlight.c</FilePath>
-            </File>
-            <File>
-              <FileName>flashlight.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\flashlight.h</FilePath>
-            </File>
-            <File>
-              <FileName>emoji.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\emoji.c</FilePath>
-            </File>
-            <File>
-              <FileName>emoji.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\emoji.h</FilePath>
-            </File>
-            <File>
-              <FileName>time_app.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\time_app.c</FilePath>
-            </File>
-            <File>
-              <FileName>time_app.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\time_app.h</FilePath>
-            </File>
-            <File>
-              <FileName>game_app.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\game_app.c</FilePath>
-            </File>
-            <File>
-              <FileName>game_app.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\game_app.h</FilePath>
-            </File>
-            <File>
-              <FileName>time_setting.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\time_setting.c</FilePath>
-            </File>
-            <File>
-              <FileName>time_setting.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\time_setting.h</FilePath>
-            </File>
-            <File>
-              <FileName>alarm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\alarm.c</FilePath>
-            </File>
-            <File>
-              <FileName>alarm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\alarm.h</FilePath>
-            </File>
-            <File>
-              <FileName>countdown.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\countdown.c</FilePath>
-            </File>
-            <File>
-              <FileName>countdown.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\countdown.h</FilePath>
-            </File>
-            <File>
               <FileName>AD.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\hardware\AD.c</FilePath>
@@ -824,36 +744,6 @@
               <FileName>AD.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\hardware\AD.h</FilePath>
-            </File>
-            <File>
-              <FileName>battery.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\battery.c</FilePath>
-            </File>
-            <File>
-              <FileName>battery.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\battery.h</FilePath>
-            </File>
-            <File>
-              <FileName>dino_game.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\dino_game.c</FilePath>
-            </File>
-            <File>
-              <FileName>dino_game.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\dino_game.h</FilePath>
-            </File>
-            <File>
-              <FileName>auto_sleep.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\auto_sleep.c</FilePath>
-            </File>
-            <File>
-              <FileName>auto_sleep.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\auto_sleep.h</FilePath>
             </File>
             <File>
               <FileName>MyI2C.c</FileName>
@@ -880,35 +770,150 @@
               <FileType>5</FileType>
               <FilePath>.\hardware\MPU6050_Reg.h</FilePath>
             </File>
-            <File>
-              <FileName>motion_wakeup.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\motion_wakeup.c</FilePath>
-            </File>
-            <File>
-              <FileName>motion_wakeup.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\motion_wakeup.h</FilePath>
-            </File>
-            <File>
-              <FileName>power.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hardware\power.c</FilePath>
-            </File>
-            <File>
-              <FileName>power.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hardware\power.h</FilePath>
-            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>app</GroupName>
+          <Files>
             <File>
               <FileName>app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\hardware\app.c</FilePath>
+              <FilePath>.\app\app.c</FilePath>
             </File>
             <File>
               <FileName>app.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\hardware\app.h</FilePath>
+              <FilePath>.\app\app.h</FilePath>
+            </File>
+            <File>
+              <FileName>menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>menu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\menu.h</FilePath>
+            </File>
+            <File>
+              <FileName>time_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\time_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>time_app.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\time_app.h</FilePath>
+            </File>
+            <File>
+              <FileName>time_setting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\time_setting.c</FilePath>
+            </File>
+            <File>
+              <FileName>time_setting.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\time_setting.h</FilePath>
+            </File>
+            <File>
+              <FileName>alarm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\alarm.c</FilePath>
+            </File>
+            <File>
+              <FileName>alarm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\alarm.h</FilePath>
+            </File>
+            <File>
+              <FileName>countdown.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\countdown.c</FilePath>
+            </File>
+            <File>
+              <FileName>countdown.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\countdown.h</FilePath>
+            </File>
+            <File>
+              <FileName>flashlight.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\flashlight.c</FilePath>
+            </File>
+            <File>
+              <FileName>flashlight.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\flashlight.h</FilePath>
+            </File>
+            <File>
+              <FileName>game_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\game_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>game_app.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\game_app.h</FilePath>
+            </File>
+            <File>
+              <FileName>dino_game.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\dino_game.c</FilePath>
+            </File>
+            <File>
+              <FileName>dino_game.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\dino_game.h</FilePath>
+            </File>
+            <File>
+              <FileName>emoji.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\emoji.c</FilePath>
+            </File>
+            <File>
+              <FileName>emoji.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\emoji.h</FilePath>
+            </File>
+            <File>
+              <FileName>auto_sleep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\auto_sleep.c</FilePath>
+            </File>
+            <File>
+              <FileName>auto_sleep.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\auto_sleep.h</FilePath>
+            </File>
+            <File>
+              <FileName>motion_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\motion_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>motion_wakeup.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\motion_wakeup.h</FilePath>
+            </File>
+            <File>
+              <FileName>battery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\battery.c</FilePath>
+            </File>
+            <File>
+              <FileName>battery.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\battery.h</FilePath>
+            </File>
+            <File>
+              <FileName>power.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\app\power.c</FilePath>
+            </File>
+            <File>
+              <FileName>power.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\power.h</FilePath>
             </File>
           </Files>
         </Group>

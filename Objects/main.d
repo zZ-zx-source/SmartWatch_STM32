@@ -28,4 +28,4 @@
 .\objects\main.o: .\library\stm32f10x_usart.h
 .\objects\main.o: .\library\stm32f10x_wwdg.h
 .\objects\main.o: .\library\misc.h
-.\objects\main.o: .\hardware\app.h
+.\objects\main.o: .\app\app.h

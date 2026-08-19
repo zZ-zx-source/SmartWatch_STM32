@@ -1,4 +1,4 @@
-.\objects\emoji.o: hardware\emoji.c
+.\objects\emoji.o: app\emoji.c
 .\objects\emoji.o: .\start\stm32f10x.h
 .\objects\emoji.o: .\start\core_cm3.h
 .\objects\emoji.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,6 +28,6 @@
 .\objects\emoji.o: .\library\stm32f10x_usart.h
 .\objects\emoji.o: .\library\stm32f10x_wwdg.h
 .\objects\emoji.o: .\library\misc.h
-.\objects\emoji.o: hardware\emoji.h
-.\objects\emoji.o: hardware\OLED.h
-.\objects\emoji.o: hardware\OLED_Data.h
+.\objects\emoji.o: app\emoji.h
+.\objects\emoji.o: .\hardware\OLED.h
+.\objects\emoji.o: .\hardware\OLED_Data.h

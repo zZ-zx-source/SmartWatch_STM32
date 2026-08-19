@@ -1,4 +1,4 @@
-.\objects\time_setting.o: hardware\time_setting.c
+.\objects\time_setting.o: app\time_setting.c
 .\objects\time_setting.o: .\start\stm32f10x.h
 .\objects\time_setting.o: .\start\core_cm3.h
 .\objects\time_setting.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,9 +28,9 @@
 .\objects\time_setting.o: .\library\stm32f10x_usart.h
 .\objects\time_setting.o: .\library\stm32f10x_wwdg.h
 .\objects\time_setting.o: .\library\misc.h
-.\objects\time_setting.o: hardware\time_setting.h
-.\objects\time_setting.o: hardware\menu.h
+.\objects\time_setting.o: app\time_setting.h
+.\objects\time_setting.o: app\menu.h
 .\objects\time_setting.o: .\system\myRTC.h
-.\objects\time_setting.o: hardware\OLED.h
-.\objects\time_setting.o: hardware\OLED_Data.h
+.\objects\time_setting.o: .\hardware\OLED.h
+.\objects\time_setting.o: .\hardware\OLED_Data.h
 .\objects\time_setting.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdio.h

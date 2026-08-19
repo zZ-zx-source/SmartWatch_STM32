@@ -1,4 +1,4 @@
-.\objects\auto_sleep.o: hardware\auto_sleep.c
+.\objects\auto_sleep.o: app\auto_sleep.c
 .\objects\auto_sleep.o: .\start\stm32f10x.h
 .\objects\auto_sleep.o: .\start\core_cm3.h
 .\objects\auto_sleep.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,6 +28,6 @@
 .\objects\auto_sleep.o: .\library\stm32f10x_usart.h
 .\objects\auto_sleep.o: .\library\stm32f10x_wwdg.h
 .\objects\auto_sleep.o: .\library\misc.h
-.\objects\auto_sleep.o: hardware\auto_sleep.h
-.\objects\auto_sleep.o: hardware\OLED.h
-.\objects\auto_sleep.o: hardware\OLED_Data.h
+.\objects\auto_sleep.o: app\auto_sleep.h
+.\objects\auto_sleep.o: .\hardware\OLED.h
+.\objects\auto_sleep.o: .\hardware\OLED_Data.h

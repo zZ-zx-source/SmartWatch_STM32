@@ -1,4 +1,4 @@
-.\objects\motion_wakeup.o: hardware\motion_wakeup.c
+.\objects\motion_wakeup.o: app\motion_wakeup.c
 .\objects\motion_wakeup.o: .\start\stm32f10x.h
 .\objects\motion_wakeup.o: .\start\core_cm3.h
 .\objects\motion_wakeup.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,8 +28,8 @@
 .\objects\motion_wakeup.o: .\library\stm32f10x_usart.h
 .\objects\motion_wakeup.o: .\library\stm32f10x_wwdg.h
 .\objects\motion_wakeup.o: .\library\misc.h
-.\objects\motion_wakeup.o: hardware\motion_wakeup.h
-.\objects\motion_wakeup.o: hardware\MPU6050.h
-.\objects\motion_wakeup.o: hardware\auto_sleep.h
+.\objects\motion_wakeup.o: app\motion_wakeup.h
+.\objects\motion_wakeup.o: .\hardware\MPU6050.h
+.\objects\motion_wakeup.o: app\auto_sleep.h
 .\objects\motion_wakeup.o: F:\keil5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\motion_wakeup.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdio.h

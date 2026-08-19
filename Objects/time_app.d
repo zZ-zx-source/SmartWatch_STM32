@@ -1,4 +1,4 @@
-.\objects\time_app.o: hardware\time_app.c
+.\objects\time_app.o: app\time_app.c
 .\objects\time_app.o: .\start\stm32f10x.h
 .\objects\time_app.o: .\start\core_cm3.h
 .\objects\time_app.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,10 +28,10 @@
 .\objects\time_app.o: .\library\stm32f10x_usart.h
 .\objects\time_app.o: .\library\stm32f10x_wwdg.h
 .\objects\time_app.o: .\library\misc.h
-.\objects\time_app.o: hardware\time_app.h
-.\objects\time_app.o: hardware\menu.h
-.\objects\time_app.o: hardware\OLED.h
-.\objects\time_app.o: hardware\OLED_Data.h
-.\objects\time_app.o: hardware\time_setting.h
-.\objects\time_app.o: hardware\alarm.h
-.\objects\time_app.o: hardware\countdown.h
+.\objects\time_app.o: app\time_app.h
+.\objects\time_app.o: app\menu.h
+.\objects\time_app.o: .\hardware\OLED.h
+.\objects\time_app.o: .\hardware\OLED_Data.h
+.\objects\time_app.o: app\time_setting.h
+.\objects\time_app.o: app\alarm.h
+.\objects\time_app.o: app\countdown.h

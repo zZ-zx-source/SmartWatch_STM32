@@ -1,4 +1,4 @@
-.\objects\alarm.o: hardware\alarm.c
+.\objects\alarm.o: app\alarm.c
 .\objects\alarm.o: .\start\stm32f10x.h
 .\objects\alarm.o: .\start\core_cm3.h
 .\objects\alarm.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,10 +28,10 @@
 .\objects\alarm.o: .\library\stm32f10x_usart.h
 .\objects\alarm.o: .\library\stm32f10x_wwdg.h
 .\objects\alarm.o: .\library\misc.h
-.\objects\alarm.o: hardware\alarm.h
-.\objects\alarm.o: hardware\menu.h
+.\objects\alarm.o: app\alarm.h
+.\objects\alarm.o: app\menu.h
 .\objects\alarm.o: .\system\myRTC.h
-.\objects\alarm.o: hardware\OLED.h
-.\objects\alarm.o: hardware\OLED_Data.h
-.\objects\alarm.o: hardware\buzzer.h
+.\objects\alarm.o: .\hardware\OLED.h
+.\objects\alarm.o: .\hardware\OLED_Data.h
+.\objects\alarm.o: .\hardware\buzzer.h
 .\objects\alarm.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdio.h

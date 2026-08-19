@@ -1,4 +1,4 @@
-.\objects\countdown.o: hardware\countdown.c
+.\objects\countdown.o: app\countdown.c
 .\objects\countdown.o: .\start\stm32f10x.h
 .\objects\countdown.o: .\start\core_cm3.h
 .\objects\countdown.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,9 +28,9 @@
 .\objects\countdown.o: .\library\stm32f10x_usart.h
 .\objects\countdown.o: .\library\stm32f10x_wwdg.h
 .\objects\countdown.o: .\library\misc.h
-.\objects\countdown.o: hardware\countdown.h
-.\objects\countdown.o: hardware\menu.h
-.\objects\countdown.o: hardware\OLED.h
-.\objects\countdown.o: hardware\OLED_Data.h
-.\objects\countdown.o: hardware\buzzer.h
+.\objects\countdown.o: app\countdown.h
+.\objects\countdown.o: app\menu.h
+.\objects\countdown.o: .\hardware\OLED.h
+.\objects\countdown.o: .\hardware\OLED_Data.h
+.\objects\countdown.o: .\hardware\buzzer.h
 .\objects\countdown.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdio.h

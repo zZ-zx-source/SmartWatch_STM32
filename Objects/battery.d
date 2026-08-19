@@ -1,4 +1,4 @@
-.\objects\battery.o: hardware\battery.c
+.\objects\battery.o: app\battery.c
 .\objects\battery.o: .\start\stm32f10x.h
 .\objects\battery.o: .\start\core_cm3.h
 .\objects\battery.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,7 +28,7 @@
 .\objects\battery.o: .\library\stm32f10x_usart.h
 .\objects\battery.o: .\library\stm32f10x_wwdg.h
 .\objects\battery.o: .\library\misc.h
-.\objects\battery.o: hardware\battery.h
-.\objects\battery.o: hardware\AD.h
-.\objects\battery.o: hardware\OLED.h
-.\objects\battery.o: hardware\OLED_Data.h
+.\objects\battery.o: app\battery.h
+.\objects\battery.o: .\hardware\AD.h
+.\objects\battery.o: .\hardware\OLED.h
+.\objects\battery.o: .\hardware\OLED_Data.h

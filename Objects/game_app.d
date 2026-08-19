@@ -1,4 +1,4 @@
-.\objects\game_app.o: hardware\game_app.c
+.\objects\game_app.o: app\game_app.c
 .\objects\game_app.o: .\start\stm32f10x.h
 .\objects\game_app.o: .\start\core_cm3.h
 .\objects\game_app.o: F:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,8 +28,8 @@
 .\objects\game_app.o: .\library\stm32f10x_usart.h
 .\objects\game_app.o: .\library\stm32f10x_wwdg.h
 .\objects\game_app.o: .\library\misc.h
-.\objects\game_app.o: hardware\game_app.h
-.\objects\game_app.o: hardware\menu.h
-.\objects\game_app.o: hardware\OLED.h
-.\objects\game_app.o: hardware\OLED_Data.h
-.\objects\game_app.o: hardware\dino_game.h
+.\objects\game_app.o: app\game_app.h
+.\objects\game_app.o: app\menu.h
+.\objects\game_app.o: .\hardware\OLED.h
+.\objects\game_app.o: .\hardware\OLED_Data.h
+.\objects\game_app.o: app\dino_game.h

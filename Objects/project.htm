@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Wed Aug 19 16:34:06 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Wed Aug 19 20:00:20 2026
 <BR><P>
 <H3>Maximum Stack Usage =        528 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -598,8 +598,8 @@ Global Symbols
 <P><STRONG><a name="[7f]"></a>srand</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, rand.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = srand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Init
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_rand_init
+<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_rand_init
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Init
 </UL>
 
 <P><STRONG><a name="[65]"></a>_rand_init</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, rand.o(.text))
@@ -1153,15 +1153,15 @@ Global Symbols
 <P><STRONG><a name="[ba]"></a>App_Init</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, app.o(i.App_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = App_Init &rArr; MyRTC_Init &rArr; MyRTC_SetTime &rArr; mktime &rArr; _tm_carry
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD_Init
+<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motion_Init
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Init
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Battery_Init
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Init
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD_Init
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Init
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Init
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyRTC_Init
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motion_Init
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Init
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Battery_Init
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1171,17 +1171,17 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 528 + Unknown Stack Size
 <LI>Call Chain = App_Process &rArr; Power_HandleLongPress &rArr; Menu_Update &rArr; Menu_StatusBar &rArr; OLED_Printf &rArr; OLED_ShowString &rArr; OLED_ShowChar &rArr;  OLED_ShowChar (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Countdown_SecondTick
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_CheckSecondTick
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Read
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyRTC_ReadTime
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motion_Process
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Countdown_SecondTick
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Wakeup
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Tick
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Reset
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_IsSleeping
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_CheckSecondTick
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Read
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyRTC_ReadTime
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1199,9 +1199,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[cb]"></a>AutoSleep_IsSleeping</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, auto_sleep.o(i.AutoSleep_IsSleeping))
-<BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Process
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motion_Process
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Process
 </UL>
 
 <P><STRONG><a name="[ce]"></a>AutoSleep_Reset</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, auto_sleep.o(i.AutoSleep_Reset))
@@ -1221,9 +1221,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Process
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motion_Process
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Process
 </UL>
 
 <P><STRONG><a name="[118]"></a>BKP_ReadBackupRegister</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, stm32f10x_bkp.o(i.BKP_ReadBackupRegister))
@@ -1402,8 +1402,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;srand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Enter
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameApp_Init
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameApp_Init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Enter
 </UL>
 
 <P><STRONG><a name="[f0]"></a>DinoGame_IsExitRequested</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, dino_game.o(i.DinoGame_IsExitRequested))
@@ -1417,7 +1417,7 @@ Global Symbols
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
 </UL>
 
-<P><STRONG><a name="[e2]"></a>DinoGame_Tick</STRONG> (Thumb, 342 bytes, Stack size 48 bytes, dino_game.o(i.DinoGame_Tick))
+<P><STRONG><a name="[e2]"></a>DinoGame_Tick</STRONG> (Thumb, 338 bytes, Stack size 48 bytes, dino_game.o(i.DinoGame_Tick))
 <BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = DinoGame_Tick &rArr; sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
@@ -1464,18 +1464,18 @@ Global Symbols
 <P><STRONG><a name="[ab]"></a>GPIO_Init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, stm32f10x_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD_Init
+<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_Init
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD_Init
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_GPIO_Init
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Init
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_Init
 </UL>
 
 <P><STRONG><a name="[f7]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ReadInputDataBit))
-<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Process
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_R_SDA
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Process
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Tick
 </UL>
 
@@ -1487,26 +1487,26 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d3]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_SetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StartAlarm
+<BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_Init
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StartAlarm
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_SetState
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_Init
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Tick
 </UL>
 
 <P><STRONG><a name="[115]"></a>GPIO_WriteBit</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_WriteBit))
-<BR><BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_W_SDA
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_W_SCL
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_W_SDA
+<BR><BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_W_SDA
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_W_SCL
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_W_SDA
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_W_SCL
 </UL>
 
 <P><STRONG><a name="[ee]"></a>GameApp_Draw</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, game_app.o(i.GameApp_Draw))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = GameApp_Draw &rArr; DinoGame_Draw &rArr; OLED_ShowString &rArr; OLED_ShowChar &rArr;  OLED_ShowChar (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowString
+<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowString
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ReverseArea
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
 </UL>
@@ -1514,10 +1514,10 @@ Global Symbols
 <P><STRONG><a name="[ef]"></a>GameApp_HandleKey</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, game_app.o(i.GameApp_HandleKey))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = GameApp_HandleKey &rArr; DinoGame_Enter &rArr; DinoGame_Init &rArr; srand
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_HandleKey
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Enter
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_SetActive
+<BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_SetActive
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_IsExitRequested
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_HandleKey
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Enter
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
 </UL>
@@ -1525,8 +1525,8 @@ Global Symbols
 <P><STRONG><a name="[f3]"></a>GameApp_Init</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, game_app.o(i.GameApp_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GameApp_Init &rArr; DinoGame_Init &rArr; srand
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Init
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_SetActive
+<BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_SetActive
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Init
 </UL>
@@ -1663,8 +1663,8 @@ Global Symbols
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Update
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Clear
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Process
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Process
 </UL>
 
 <P><STRONG><a name="[c2]"></a>Motion_Init</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, motion_wakeup.o(i.Motion_Init))
@@ -1678,9 +1678,9 @@ Global Symbols
 <P><STRONG><a name="[ca]"></a>Motion_Process</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, motion_wakeup.o(i.Motion_Process))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = Motion_Process &rArr; IsWristRaised &rArr; MPU6050_GetData &rArr; MPU6050_ReadReg &rArr; MyI2C_SendByte &rArr; MyI2C_W_SDA
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsWristRaised
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Wakeup
+<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Wakeup
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_IsSleeping
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsWristRaised
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Process
 </UL>
@@ -1853,9 +1853,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[110]"></a>OLED_Clear</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, oled.o(i.OLED_Clear))
-<BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
+<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Init
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
 </UL>
 
 <P><STRONG><a name="[12c]"></a>OLED_ClearArea</STRONG> (Thumb, 140 bytes, Stack size 28 bytes, oled.o(i.OLED_ClearArea))
@@ -1980,12 +1980,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ClearArea
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Detail_Emoji
+<BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Detail_Emoji
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Select
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowString
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowChar
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowBattery
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
 </UL>
 
 <P><STRONG><a name="[dd]"></a>OLED_ShowNum</STRONG> (Thumb, 76 bytes, Stack size 32 bytes, oled.o(i.OLED_ShowNum))
@@ -2004,15 +2004,15 @@ Global Symbols
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowChar
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
-<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimeSetting_Draw
+<BR>[Called By]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimeSetting_Draw
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Countdown_Draw
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Draw
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimeApp_Draw
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameApp_Draw
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Detail_Flashlight
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Printf
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Printf
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
 </UL>
 
 <P><STRONG><a name="[de]"></a>OLED_Update</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, oled.o(i.OLED_Update))
@@ -2021,10 +2021,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteData
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_SetCursor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
+<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Init
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
 </UL>
 
 <P><STRONG><a name="[126]"></a>OLED_W_SCL</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, oled.o(i.OLED_W_SCL))
@@ -2056,10 +2056,10 @@ Global Symbols
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_I2C_Start
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_I2C_SendByte
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_SetCursor
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Init
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
+<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Power_HandleLongPress
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Wakeup
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_SetCursor
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Init
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_EnterSleep
 </UL>
 
@@ -2086,6 +2086,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu_Update
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Wakeup
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_IsSleeping
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_WriteCommand
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Update
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowString
@@ -2093,8 +2095,6 @@ Global Symbols
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopAlarm
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_ReadLongPress
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_SetState
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_Wakeup
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AutoSleep_IsSleeping
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Process
@@ -2111,12 +2111,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a9]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD_Init
+<BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_Init
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD_Init
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_GPIO_Init
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Init
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyI2C_Init
 </UL>
 
 <P><STRONG><a name="[11a]"></a>RCC_GetFlagStatus</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, stm32f10x_rcc.o(i.RCC_GetFlagStatus))
@@ -2692,8 +2692,8 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[df]"></a>Update_Rects</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, dino_game.o(i.Update_Rects))
-<BR><BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Tick
+<BR><BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Tick
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DinoGame_Draw
 </UL>
 
 <P><STRONG><a name="[f4]"></a>IsWristRaised</STRONG> (Thumb, 62 bytes, Stack size 40 bytes, motion_wakeup.o(i.IsWristRaised))
