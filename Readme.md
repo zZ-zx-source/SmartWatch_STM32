@@ -25,51 +25,23 @@
 - 完整的菜单交互系统
 - 多种实用功能（时间管理、游戏、电源管理等）
 <div align="center">
-    <table>
-        <tr>
-            <td align="center">
-                <img src="./images/effect.gif" width="40%"><br>
-                演示效果(因gif压缩原因会有加速)
-            </td>
-        </tr>
-    </table>
-</div>
-</p>
-<div align="center">
-    <table>
-        <tr>
-            <td align="center">
-                <img src="./images/hardware_photo1.jpg" width="100%"><br>
-                主界面
-            </td>
-            <td align="center">
-                <img src="./images/hardware_photo2.jpg" width="100%"><br>
-                菜单界面
-            </td>
-            <td align="center">
-                <img src="./images/hardware_photo3.jpg" width="100%"><br>
-                时间功能界面
-            </td>
-        </tr>
-    </table>
-</div>
-<div align="center">
-    <table>
-        <tr>
-            <td align="center">
-                <img src="./images/hardware_photo4.jpg" width="100%"><br>
-                手电筒界面
-            </td>
-            <td align="center">
-                <img src="./images/hardware_photo6.jpg" width="100%"><br>
-                游戏功能界面
-            </td>
-            <td align="center">
-                <img src="./images/hardware_photo7.jpg" width="100%"><br>
-                表情包界面
-            </td>
-        </tr>
-    </table>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/effect.gif?token=GHSAT0AAAAAAEF6PALNXN4AND2BPPLDLH242UE75TA" width="200"><br>
+    演示效果(因gif压缩原因会有加速)
+  </p>
+  <br>
+  <table>
+    <tr>
+      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo1.jpg?token=GHSAT0AAAAAAEF6PALMZUILW7GJOI4OBXRO2UE76KA" width="200"><br>主界面</td>
+      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo2.jpg?token=GHSAT0AAAAAAEF6PALMKDNQHVWM2CNHO2OC2UE764Q" width="200"><br>菜单界面</td>
+      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo3.jpg?token=GHSAT0AAAAAAEF6PALMTQIPDCGG4WXYBD7Q2UE77RA" width="200"><br>时间功能界面</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo4.jpg?token=GHSAT0AAAAAAEF6PALMTSYRPBWRMVZUPMOE2UFAAAA" width="200"><br>手电筒界面</td>
+      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo6.jpg?token=GHSAT0AAAAAAEF6PALMBJ22AD3LJKAIB6IM2UFABAA" width="200"><br>游戏功能界面</td>
+      <td align="center"><img src="https://raw.githubusercontent.com/zZ-zx-source/SmartWatch_STM32/refs/heads/main/images/hardware_photo7.jpg?token=GHSAT0AAAAAAEF6PALNPI67J2M67B7MU75A2UFABTA" width="200"><br>表情包界面</td>
+    </tr>
+  </table>
 </div>
 
 ---
@@ -83,10 +55,11 @@
 | 主控 | STM32F103C8T6 | 核心处理器 |
 | 显示屏 | 0.96寸OLED (I2C) | 显示界面 |
 | 按键 | 3个独立按键 | 用户交互 |
-| 蜂鸣器 | 无源蜂鸣器 | 闹钟/倒计时提醒 |
-| LED | LED灯 | 模拟手电筒 |
+| 蜂鸣器 | 有源蜂鸣器 | 闹钟/倒计时提醒 |
+| LED | 发光二极管LED灯珠 | 模拟手电筒 |
 | 姿态传感器 | MPU6050 (I2C) | 抬腕检测 |
-| 电池 | 3.7V锂电池 | 供电 |
+| 电位器 | 10K欧姆 | 模拟电池电压变化 |
+| 仿真器 | ST-LINK | 调试/烧录代码 |
 
 ### 引脚连接表
 
@@ -94,79 +67,40 @@
 |------|------|------|
 | OLED_SCL | PB6 | I2C时钟线 |
 | OLED_SDA | PB7 | I2C数据线 |
-| 按键1 (跳转菜单界面/返回) | PB13 | 进入/返回 |
+| 按键1 (进入/返回) | PB13 | 跳转菜单界面/回退上一级目录 |
 | 按键2 (选择) | PB14 | 下翻 |
 | 按键3 (确定) | PB15 | 进入/数值加/长按开关机 |
 | 蜂鸣器 (高电平触发) | PB1 | 闹钟/倒计时输出 |
-| LED | PB12 | 手电筒开关 |
+| LED | PB12 | 模拟手电筒开/关 |
 | MPU6050_SCL | PB10 | I2C时钟线 |
 | MPU6050_SDA | PB11 | I2C数据线 |
-| 电位器(模拟电量变化) | PA0 | ADC输入 |
+| 电位器 | PA0 | ADC输入(模拟电池电压变化) |
 
 ### 实物连接图
-
 <div align="center">
-    <table>
-        <tr>
-            <td align="center">
-                <img src="./images/hardware_photo.jpg" width="100%"><br>
-                硬件整体连接图
-            </td>
-        </tr>
-    </table>
-</div>
-
-<div align="center">
-    <table>
-        <tr>
-            <td align="center">
-                <img src="./images/feature1.gif" width="100%"><br>
-                自动息屏/抬手唤醒/按键唤醒
-            </td>
-            <td align="center">
-                <img src="./images/feature2.gif" width="100%"><br>
-                菜单切换
-            </td>
-        </tr>
-    </table>
-</div>
-<div align="center">
-    <table>
-        <tr>
-            <td align="center">
-                <img src="./images/feature3.gif" width="100%"><br>
-                设置时间/闹钟/倒计时
-            </td>
-            <td align="center">
-                <img src="./images/feature4.gif" width="100%"><br>
-                手电筒功能
-            </td>
-        </tr>
-    </table>
-</div>
-<div align="center">
-    <table>
-        <tr>
-            <td align="center">
-                <img src="./images/feature5.gif" width="100%"><br>
-                谷歌小恐龙游戏
-            </td>
-            <td align="center">
-                <img src="./images/feature6.gif" width="100%"><br>
-                表情包显示
-            </td>
-        </tr>
-    </table>
-</div>
-<div align="center">
-    <table>
-        <tr>
-            <td align="center">
-                <img src="./images/feature7.gif" width="100%"><br>
-                模拟电池使用情况
-            </td>
-        </tr>
-    </table>
+<p align="center">
+    <img src="./images/hardware_photo.jpg" width="400"><br>
+    智能手表实物整体图
+  </p>
+  <br>
+  <table>
+    <tr>
+      <td align="center"><img src="./images/feature1.gif" width="250"><br>自动息屏/抬手唤醒/按键唤醒</td>
+      <td align="center"><img src="./images/feature2.gif" width="250"><br>菜单切换</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="./images/feature3.gif" width="250"><br>设置时间/闹钟/倒计时</td>
+      <td align="center"><img src="./images/feature4.gif" width="250"><br>手电筒功能</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="./images/feature5.gif" width="250"><br>谷歌小恐龙游戏</td>
+      <td align="center"><img src="./images/feature6.gif" width="250"><br>表情包显示</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="./images/feature7.gif" width="250"><br>模拟电池使用情况</td>
+      <td></td>
+    </tr>
+  </table>
 </div>
 
 ---
