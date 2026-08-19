@@ -5,39 +5,39 @@
 #include <stdlib.h>    // rand
 #include <math.h>      // sin
 
-/* ---------------- ÓÎÏ·×´Ì¬ ---------------- */
+/* ---------------- ï¿½ï¿½Ï·×´Ì¬ ---------------- */
 typedef struct {
     uint8_t minX, minY, maxX, maxY;
 } Rect;
 
-static uint8_t exit_request = 0;   // ÇëÇóÍË³ö±êÖ¾
-static uint8_t game_active = 0;    // ÓÎÏ·ÊÇ·ñ¼¤»î£¨µ±Ç°ÊÇ·ñÔÚÓÎÏ·Ò³£©
+static uint8_t exit_request = 0;   // ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Ö¾
+static uint8_t game_active = 0;    // ï¿½ï¿½Ï·ï¿½Ç·ñ¼¤»î£¨ï¿½ï¿½Ç°ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Ò³ï¿½ï¿½
 
 static int score = 0;
 static uint16_t ground_pos = 0;
 static uint16_t barrier_pos = 0;
 static uint8_t barrier_type = 0;
-static uint8_t barrier_active = 1;      // ÕÏ°­ÎïÊÇ·ñÔÚÆÁÄ»ÉÏ
+static uint8_t barrier_active = 1;      // ï¿½Ï°ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½
 
-static uint8_t dino_jump_flag = 0;      // 0:±¼ÅÜ, 1:ÌøÔ¾
+static uint8_t dino_jump_flag = 0;      // 0:ï¿½ï¿½ï¿½ï¿½, 1:ï¿½ï¿½Ô¾
 static uint16_t jump_t = 0;
-static uint8_t jump_height = 0;         // µ±Ç°ÌøÔ¾¸ß¶È£¨ÏñËØ£©
+static uint8_t jump_height = 0;         // ï¿½ï¿½Ç°ï¿½ï¿½Ô¾ï¿½ß¶È£ï¿½ï¿½ï¿½ï¿½Ø£ï¿½
 
-static uint8_t game_over_flag = 0;      // 1: Åö×²·¢Éú£¬µÈ´ıÑÓÊ±·µ»Ø
-static uint16_t game_over_timer = 0;    // Game Over Í£Áô¼ÆÊ± (µ¥Î»:10ms)
+static uint8_t game_over_flag = 0;      // 1: ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+static uint16_t game_over_timer = 0;    // Game Over Í£ï¿½ï¿½ï¿½ï¿½Ê± (ï¿½ï¿½Î»:10ms)
 
 static Rect dino_rect, barrier_rect;
 
-/* ---------------- ÄÚ²¿º¯ÊıÉùÃ÷ ---------------- */
+/* ---------------- ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ---------------- */
 static void Update_Rects(void);
 static uint8_t Check_Collision(void);
 
-/* ---------------- ³õÊ¼»¯ ---------------- */
+/* ---------------- ï¿½ï¿½Ê¼ï¿½ï¿½ ---------------- */
 void DinoGame_Init(void)
 {
     score = 0;
     ground_pos = 0;
-    barrier_pos = 128;   //³õÊ¼ÈÃÕÏ°­ÎïÍêÈ«ÔÚÆÁÄ»Íâ£¨x=127-128=-1?£©
+    barrier_pos = 128;   //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½Ä»ï¿½â£¨x=127-128=-1?ï¿½ï¿½
     barrier_active = 1;
     barrier_type = 0;
     dino_jump_flag = 0;
@@ -47,55 +47,55 @@ void DinoGame_Init(void)
     game_over_timer = 0;
     exit_request = 0;
     game_active = 0;
-    srand(1234);   // Ëæ»úÖÖ×Ó£¨¿É¸ÄÎªÊ¹ÓÃ RTC ¼ÆÊıÆ÷£©
+    srand(1234);   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½É¸ï¿½ÎªÊ¹ï¿½ï¿½ RTC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 void DinoGame_Enter(void)
 {
-    DinoGame_Init();      // ½øÈëÓÎÏ·Ê±ÖØÖÃËùÓĞ×´Ì¬
-	game_active = 1;      // ±ê¼ÇÓÎÏ·ÕıÔÚÔËĞĞ
-    exit_request = 0;     // Çå³ıÍË³öÇëÇó
+    DinoGame_Init();      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	game_active = 1;      // ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    exit_request = 0;     // ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
-/* ---------------- »æÖÆº¯Êı£¨»æÖÆµ±Ç°Ö¡£©---------------- */
+/* ---------------- ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½Ç°Ö¡ï¿½ï¿½---------------- */
 void DinoGame_Draw(void)
 {
-//    // ÇåÆÁ£¨È«ÆÁÖØ»æ£©
-//    OLED_Clear();//²»ĞèÒª£¬ÒòÎªÔÚMenu_Update ÒÑ¾­Í³Ò»Ö´ĞĞÁË OLED_Clear()
+//    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ø»æ£©
+//    OLED_Clear();//ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Menu_Update ï¿½Ñ¾ï¿½Í³Ò»Ö´ï¿½ï¿½ï¿½ï¿½ OLED_Clear()
 
-    // ÏÔÊ¾µÃ·Ö£¨ÓÒÉÏ½Ç£¬y ÏÂÒÆÖÁ 20£©
+    // ï¿½ï¿½Ê¾ï¿½Ã·Ö£ï¿½ï¿½ï¿½ï¿½Ï½Ç£ï¿½y ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 20ï¿½ï¿½
 	OLED_ShowNum(98, 20, score, 5, OLED_6X8);
 
-    // 2. »æÖÆµØÃæ£¨¹ö¶¯Ğ§¹û£ºÖ±½Ó»­Ò»ÕûÌõÒÆ¶¯µÄµØÃæ£©
-    //    ¼ò»¯£ºÓÃ OLED_ShowImage »­Ò»¸ö¹Ì¶¨³¤¶ÈµÄµØÃæ£¬¸ù¾İ ground_pos Æ«ÒÆ»æÖÆ
-    //    ÕâÀïÓÃÒ»¸ö 16x8 µÄµØÃæÌõÎÆÖØ¸´»æÖÆ»òÊ¹ÓÃ ShowImage Æ«ÒÆ
+    // 2. ï¿½ï¿½ï¿½Æµï¿½ï¿½æ£¨ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó»ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Äµï¿½ï¿½æ£©
+    //    ï¿½ò»¯£ï¿½ï¿½ï¿½ OLED_ShowImage ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½ÈµÄµï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ ground_pos Æ«ï¿½Æ»ï¿½ï¿½ï¿½
+    //    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ 16x8 ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½Æ»ï¿½Ê¹ï¿½ï¿½ ShowImage Æ«ï¿½ï¿½
     for (int x = - (ground_pos % 16); x < 128; x += 16)
     {
         OLED_ShowImage(x, GROUND_Y, 16, GROUND_HEIGHT, Ground);
     }
 
-    // 3. »æÖÆÕÏ°­Îï£¨ÏÉÈËÕÆ£©
+    // 3. ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï£¨ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½
     if (barrier_active)
     {
         OLED_ShowImage(127 - barrier_pos, BARRIER_Y, BARRIER_WIDTH, BARRIER_HEIGHT,
                        (barrier_type == 0) ? Cactus1 : (barrier_type == 1) ? Cactus2 : Cactus3);
     }
 
-    // 5. »æÖÆĞ¡¿ÖÁú
+    // 5. ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½
     if (dino_jump_flag)
     {
         OLED_ShowImage(DINO_X, DINO_Y_GROUND - jump_height, DINO_WIDTH, DINO_HEIGHT, Dino_Jump);
     }
     else
     {
-        // ±¼ÅÜ¶¯»­£ºÁ½Ö¡½»Ìæ£¬°´ ground_pos ÆæÅ¼¾ö¶¨
+        // ï¿½ï¿½ï¿½Ü¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½æ£¬ï¿½ï¿½ ground_pos ï¿½ï¿½Å¼ï¿½ï¿½ï¿½ï¿½
         if ((ground_pos / 8) % 2 == 0)
             OLED_ShowImage(DINO_X, DINO_Y_GROUND, DINO_WIDTH, DINO_HEIGHT, Dino_Run1);
         else
             OLED_ShowImage(DINO_X, DINO_Y_GROUND, DINO_WIDTH, DINO_HEIGHT, Dino_Run2);
     }
 
-    // 6. Èç¹û Game Over£¬ÏÔÊ¾ÌáÊ¾
+    // 6. ï¿½ï¿½ï¿½ Game Overï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ê¾
     if (game_over_flag)
     {
         OLED_ShowString(24, 24, "GAME OVER", OLED_8X16);
@@ -103,61 +103,61 @@ void DinoGame_Draw(void)
 
     OLED_Update();
 
-    // ¸üĞÂ¾ØĞÎÇøÓò¹©Åö×²¼ì²â
+    // ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½
     Update_Rects();
 }
 
-/* ---------------- °´¼ü´¦Àí£¨´¦Àí°´¼ü£¬·µ»ØĞÂÒ³Ãæ£© ---------------- */
+/* ---------------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½æ£© ---------------- */
 page_state_t DinoGame_HandleKey(uint8_t key)
 {
     if (key == 1)
     {
-		game_active = 0;          //Í£Ö¹ÓÎÏ·Âß¼­
+		game_active = 0;          //Í£Ö¹ï¿½ï¿½Ï·ï¿½ß¼ï¿½
         exit_request = 0;
-        return PAGE_GAME;         // ÓÃ»§Ö÷¶¯ÍË³ö£¨·µ»ØÁĞ±í£©
+        return PAGE_GAME;         // ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½ï¿½ï¿½
     }
     else if (key == 3)
     {
-        // ÌøÔ¾¼ü£ºÖ»ÓĞÔÚµØÃæÇÒÓÎÏ·Î´½áÊøÊ±²ÅÏìÓ¦
+        // ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Î´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ó¦
         if (!game_over_flag && dino_jump_flag == 0)
         {
             dino_jump_flag = 1;
-            jump_t = 0;          // ÖØĞÂ¿ªÊ¼ÌøÔ¾¼ÆÊ±
+            jump_t = 0;          // ï¿½ï¿½ï¿½Â¿ï¿½Ê¼ï¿½ï¿½Ô¾ï¿½ï¿½Ê±
         }
-        // Èç¹ûÓÎÏ·½áÊø±êÖ¾ÕıÔÚµ¹¼ÆÊ±£¬°´ Key3 ¿ÉÁ¢¼´·µ»Ø
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ Key3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (game_over_flag)
         {
             game_active = 0;
             exit_request = 0;
-            return PAGE_GAME;     // Åö×²ºó°´Key3Á¢¼´·µ»Ø
+            return PAGE_GAME;     // ï¿½ï¿½×²ï¿½ï¿½Key3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
-    return PAGE_DINO;   // Ò³Ãæ²»±ä£¬¼ÌĞøÓÎÏ·
+    return PAGE_DINO;   // Ò³ï¿½æ²»ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·
 }
 
-/* ---------------- ¶¨Ê±¸üĞÂ£¨Ã¿10msÓÉTIM2ÖĞ¶Ïµ÷ÓÃ£© ---------------- */
+/* ---------------- ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Â£ï¿½Ã¿10msï¿½ï¿½TIM2ï¿½Ğ¶Ïµï¿½ï¿½Ã£ï¿½ ---------------- */
 void DinoGame_Tick(void)
 {
-	if (!game_active) return;   // ²»ÔÚÓÎÏ·Ò³Ê±Ö±½Ó·µ»Ø
+	if (!game_active) return;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Ò³Ê±Ö±ï¿½Ó·ï¿½ï¿½ï¿½
 
-    if (exit_request) return;   // ÒÑ¾­ÇëÇóÍË³ö£¬²»ÔÙ¸üĞÂ
+    if (exit_request) return;   // ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½
 	
     if (game_over_flag)
     {
         game_over_timer++;
-        if (game_over_timer >= 150)   // 1.5Ãëºó×Ô¶¯·µ»Ø
+        if (game_over_timer >= 150)   // 1.5ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             game_over_flag = 0;
             game_over_timer = 0;
-			exit_request = 1;         // ÉèÖÃÍË³öÇëÇó£¬µÈ´ıÖ÷Ñ­»·´¦Àí
+			exit_request = 1;         // ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ó£¬µÈ´ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
         return;
     }
 
-    // ¸üĞÂµØÃæÎ»ÖÃ
+    // ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Î»ï¿½ï¿½
     static uint8_t ground_count = 0;
     ground_count++;
-    if (ground_count >= 2)   // Ã¿20msÒÆ¶¯Ò»´Î£¬ËÙ¶ÈÊÊÖĞ
+    if (ground_count >= 2)   // Ã¿20msï¿½Æ¶ï¿½Ò»ï¿½Î£ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         ground_count = 0;
         ground_pos++;
@@ -165,9 +165,9 @@ void DinoGame_Tick(void)
     }
 
 	static uint8_t barrier_speed_count = 0;
-	// ¸üĞÂÕÏ°­ÎïÎ»ÖÃ£¨Ã¿ 2 ´Î tick ÒÆ¶¯Ò»´Î£¬¼´ 20ms ÒÆ¶¯ 1 ÏñËØ£©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½Ã¿ 2 ï¿½ï¿½ tick ï¿½Æ¶ï¿½Ò»ï¿½Î£ï¿½ï¿½ï¿½ 20ms ï¿½Æ¶ï¿½ 1 ï¿½ï¿½ï¿½Ø£ï¿½
 	barrier_speed_count++;
-	if (barrier_speed_count >= 2)   // 2 = 20ms£¬Ïë¸üÂı¿É¸ÄÎª 3 »ò 4
+	if (barrier_speed_count >= 2)   // 2 = 20msï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¸ï¿½Îª 3 ï¿½ï¿½ 4
 	{
 		barrier_speed_count = 0;
 		barrier_pos++;
@@ -179,33 +179,32 @@ void DinoGame_Tick(void)
 		}
 	}
 
-    // ÌøÔ¾ÎïÀí
+    // è·³è·ƒç‰©ç†
     if (dino_jump_flag)
     {
         jump_t++;
 		if (jump_t <= JUMP_TOTAL_TICKS)
 		{
-			// Ê¹ÓÃ°ëÕıÏÒ²¨£ºjump_t=0Ê±¸ß¶È0£¬jump_t=JUMP_TOTAL_TICKS/2Ê±×î¸ß£¬jump_t=JUMP_TOTAL_TICKSÊ±»Øµ½0
+			// ä½¿ç”¨åŠæ­£å¼¦æ³¢ï¼šjump_t=0æ—¶é«˜åº¦0ï¼Œjump_t=JUMP_TOTAL_TICKS/2æ—¶æœ€é«˜ï¼Œjump_t=JUMP_TOTAL_TICKSæ—¶å›åˆ°0
 			jump_height = (uint8_t)(30 * sin(3.14159 * jump_t / JUMP_TOTAL_TICKS));
 		}
         else
         {
-            dino_jump_flag = 0;   // ÌøÔ¾½áÊø
-            jump_t = 0;
+            dino_jump_flag = 0;   // è·³è·ƒç»“æŸ            jump_t = 0;
             jump_height = 0;
         }
     }
 
-    // ·ÖÊıÔö¼Ó
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     static uint8_t score_count = 0;
     score_count++;
-    if (score_count >= 10)   // Ã¿100ms¼Ó1·Ö
+    if (score_count >= 10)   // Ã¿100msï¿½ï¿½1ï¿½ï¿½
     {
         score_count = 0;
         score++;
     }
 
-    // Åö×²¼ì²â
+    // ï¿½ï¿½×²ï¿½ï¿½ï¿½
     if (!game_over_flag && barrier_active)
     {
         Update_Rects();
@@ -213,12 +212,12 @@ void DinoGame_Tick(void)
         {
             game_over_flag = 1;
             game_over_timer = 0;
-            // ¿ÉÑ¡£º´¥·¢·äÃùÆ÷¶ÌÏì£¬µ«ÎªÁË²»¸ÉÈÅ£¬ÏÈ²»×ö
+            // ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì£¬ï¿½ï¿½Îªï¿½Ë²ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½È²ï¿½ï¿½ï¿½
         }
     }
 }
 
-/* ---------------- Åö×²¼ì²â ---------------- */
+/* ---------------- ï¿½ï¿½×²ï¿½ï¿½ï¿½ ---------------- */
 static void Update_Rects(void)
 {
     dino_rect.minX = DINO_X;
@@ -239,22 +238,22 @@ static uint8_t Check_Collision(void)
         (dino_rect.maxY > barrier_rect.minY) &&
         (dino_rect.minY < barrier_rect.maxY))
     {
-        return 1;   // Åö×²
+        return 1;   // ï¿½ï¿½×²
     }
     return 0;
 }
 
 uint8_t DinoGame_IsExitRequested(void)
 {
-    return exit_request;   // ·µ»Ø1±íÊ¾ĞèÒª·µ»ØÉÏÒ»¼¶
+    return exit_request;   // ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ê¾ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 }
 
-/*ÉèÖÃÓÎÏ·ÊÇ·ñ¼¤»î*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Ç·ñ¼¤»ï¿½*/
 void DinoGame_SetActive(uint8_t active)
 {
     game_active = active;
 	if (!active)
     {
-        exit_request = 0;   // ¹Ø¼ü£ºÍ£Ö¹ÓÎÏ·Ê±Í¬Ê±Çå³ıÍË³öÇëÇó±êÖ¾
+        exit_request = 0;   // ï¿½Ø¼ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½Ï·Ê±Í¬Ê±ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
     }
 }

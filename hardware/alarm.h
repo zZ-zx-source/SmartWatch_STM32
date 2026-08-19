@@ -1,8 +1,8 @@
 #ifndef _ALARM_H
 #define _ALARM_H
-#include "menu.h"          // ĞèÒª page_state_t
+#include "menu.h"          // éœ€è¦ page_state_t
 
-/******º¯ÊıÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜*****/
 void Alarm_Init(void);
 void Alarm_Enter(void);
 void Alarm_Draw(void);

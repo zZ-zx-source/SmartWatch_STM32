@@ -5,17 +5,17 @@
 #include "buzzer.h"
 #include <stdio.h>
 
-/* ÄÖÖÓÉè¶¨Öµ */
+/* é—¹é’Ÿè®¾å®šå€¼ */
 static uint8_t alarm_hour = 22;
 static uint8_t alarm_min = 0;
 
-/* ÄÖÖÓ×´Ì¬£º0 = Î´¼¤»î£¨Start£©£¬1 = ÒÑ¼¤»î£¨Cancel£© */
+/* é—¹é’ŸçŠ¶æ€ï¼š0 = æœªæ¿€æ´»ï¼ˆStartï¼‰ï¼Œ1 = å·²æ¿€æ´»ï¼ˆCancelï¼‰ */
 static uint8_t alarm_enabled = 0;
 
-/* Ñ¡ÖĞÎ»ÖÃ£º0=Ğ¡Ê±, 1=·ÖÖÓ, 2=Start/Cancel */
+/* é€‰ä¸­ä½ç½®ï¼š0=å°æ—¶, 1=åˆ†é’Ÿ, 2=Start/Cancel */
 static uint8_t selected_field = 0;
 
-/* ÄÖÖÓÊÇ·ñÕıÔÚÃù½Ğ */
+/* é—¹é’Ÿæ˜¯å¦æ­£åœ¨é¸£å« */
 static uint8_t is_ringing = 0;
 
 void Alarm_Init(void)
@@ -27,62 +27,62 @@ void Alarm_Init(void)
     is_ringing = 0;
 }
 
-/* ½øÈëÄÖÖÓ½çÃæÊ±µ÷ÓÃ*/
+/* è¿›å…¥é—¹é’Ÿç•Œé¢æ—¶è°ƒç”¨*/
 void Alarm_Enter(void)
 {
-    selected_field = 0;   // Ä¬ÈÏÑ¡ÖĞĞ¡Ê±Î»
+    selected_field = 0;   // é»˜è®¤é€‰ä¸­å°æ—¶ä½
 }
 
 void Alarm_Draw(void)
 {
     char buf[16];
     sprintf(buf, "%02d:%02d", alarm_hour, alarm_min);
-    OLED_ShowString(24, 16, buf, OLED_16X32);   // ÄÖÖÓÊ±¼ä
+    OLED_ShowString(24, 16, buf, OLED_16X32);   // é—¹é’Ÿæ—¶é—´
 
     if (alarm_enabled)
         OLED_ShowString(0, 48, "Cancel", OLED_8X16);
     else
         OLED_ShowString(0, 48, "Start", OLED_8X16);
 
-    /* ¸ßÁÁÑ¡ÖĞ×Ö¶Î */
-    if (selected_field == 0)        // Ğ¡Ê±
-        OLED_ReverseArea(24, 16, 32, 32);           // ¸ßÁÁÇ°Á½¸ö×Ö·û
-    else if (selected_field == 1)   // ·ÖÖÓ
-        OLED_ReverseArea(72, 16, 32, 32);           // ¸ßÁÁºóÁ½¸ö×Ö·û£¨¼ÙÉè ':' ²»¼Æ£©
+    /* é«˜äº®é€‰ä¸­å­—æ®µ */
+    if (selected_field == 0)        // å°æ—¶
+        OLED_ReverseArea(24, 16, 32, 32);           // é«˜äº®å‰ä¸¤ä¸ªå­—ç¬¦
+    else if (selected_field == 1)   // åˆ†é’Ÿ
+        OLED_ReverseArea(72, 16, 32, 32);           // é«˜äº®åä¸¤ä¸ªå­—ç¬¦ï¼ˆå‡è®¾ ':' ä¸è®¡ï¼‰
     else if (selected_field == 2)   // Start/Cancel
-        OLED_ReverseArea(0, 48, 48, 16);            // ¸ßÁÁ¸Ãµ¥´ÊÇøÓò£¨¿í¶È¹ÀËã£©
+        OLED_ReverseArea(0, 48, 48, 16);            // é«˜äº®è¯¥å•è¯åŒºåŸŸ
 }
 
 page_state_t Alarm_HandleKey(uint8_t key)
 {
-    if (key == 1)   // ·µ»ØÁĞ±í
+    if (key == 1)   // è¿”å›åˆ—è¡¨
     {
 		if (key == 1)
 		{
-        // Ö±½Ó·µ»Ø£¬²»Í£Ö¹ÄÖÖÓ
+        // ç›´æ¥è¿”å›ï¼Œä¸åœæ­¢é—¹é’Ÿ
 			return PAGE_TIME;
 		}
         return PAGE_TIME;
     }
-    else if (key == 2)   // ÇĞ»»Ñ¡ÖĞ×Ö¶Î
+    else if (key == 2)   // åˆ‡æ¢é€‰ä¸­å­—æ®µ
     {
         selected_field = (selected_field + 1) % 3;
         return PAGE_ALARM;
     }
-    else if (key == 3)   // ĞŞ¸ÄÖµ»òÇĞ»» Start/Cancel
+    else if (key == 3)   // ä¿®æ”¹å€¼æˆ–åˆ‡æ¢ Start/Cancel
     {
         switch (selected_field)
         {
-            case 0:   // Ğ¡Ê±
+            case 0:   // å°æ—¶
                 alarm_hour = (alarm_hour + 1) % 24;
                 break;
-            case 1:   // ·ÖÖÓ
+            case 1:   // å°æ—¶
                 alarm_min = (alarm_min + 1) % 60;
                 break;
             case 2:   // Start/Cancel
                 if (alarm_enabled)
                 {
-                    // µ±Ç°ÊÇ Cancel£¬ÇĞ»»Îª Start£¬¹Ø±ÕÄÖÖÓ
+                    // å½“å‰æ˜¯ Cancelï¼Œåˆ‡æ¢ä¸º Startï¼Œå…³é—­é—¹é’Ÿ
                     alarm_enabled = 0;
                     if (is_ringing)
                     {
@@ -92,7 +92,7 @@ page_state_t Alarm_HandleKey(uint8_t key)
                 }
                 else
                 {
-                    // µ±Ç°ÊÇ Start£¬ÇĞ»»Îª Cancel£¬ÆôÓÃÄÖÖÓ
+                    // å½“å‰æ˜¯ Startï¼Œåˆ‡æ¢ä¸º Cancelï¼Œå¯ç”¨é—¹é’Ÿ
                     alarm_enabled = 1;
                 }
                 break;
@@ -102,17 +102,17 @@ page_state_t Alarm_HandleKey(uint8_t key)
     return PAGE_ALARM;
 }
 
-/*Ã¿Ãë¼ì²éÄÖÖÓÊÇ·ñ´¥·¢£¨ÓÉÖ÷Ñ­»· second_tick_flag ´¦Àí£©*/
+/*æ¯ç§’æ£€æŸ¥é—¹é’Ÿæ˜¯å¦è§¦å‘ï¼ˆç”±ä¸»å¾ªç¯ second_tick_flag å¤„ç†ï¼‰*/
 void Alarm_CheckSecondTick(void)
 {
     if (!alarm_enabled) return;
-    if (is_ringing) return;   // ÒÑ¾­ÏìÁåÖĞ£¬²»ÖØ¸´Æô¶¯
+    if (is_ringing) return;   // å·²ç»å“é“ƒä¸­ï¼Œä¸é‡å¤å¯åŠ¨
 
     uint8_t current_hour = MyRTC_Time[3];
     uint8_t current_min  = MyRTC_Time[4];
     uint8_t current_sec  = MyRTC_Time[5];
 
-    // ½öÔÚÕû·ÖÖÓµÄµÚÒ»Ãë´¥·¢
+    // ä»…åœ¨æ•´åˆ†é’Ÿçš„ç¬¬ä¸€ç§’è§¦å‘
     if (current_sec == 0 && current_hour == alarm_hour && current_min == alarm_min)
     {
         Buzzer_StartAlarm();

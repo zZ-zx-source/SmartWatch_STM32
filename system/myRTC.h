@@ -5,7 +5,7 @@
 extern uint16_t MyRTC_Time[];
 extern uint8_t MyRTC_Weekday;
 
-/******º¯ÊýÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜Ž*****/
 void MyRTC_Init(void);
 void MyRTC_SetTime(void);
 void MyRTC_ReadTime(void);

@@ -17,7 +17,7 @@
 
 extern volatile uint8_t second_tick_flag;
 
-/* ³õÊ¼»¯ËùÓĞÄ£¿é */
+/* åˆå§‹åŒ–æ‰€æœ‰æ¨¡å— */
 void App_Init(void)
 {
     OLED_Init();
@@ -27,48 +27,48 @@ void App_Init(void)
     Timer_Init();
     MyRTC_Init();
 
-    AD_Init();      // ³õÊ¼»¯ ADC ÍâÉè£¨µç³ØµçÁ¿¼ì²âµÈ£©
+    AD_Init();       // åˆå§‹åŒ– ADC å¤–è®¾ï¼ˆç”µæ± ç”µé‡æ£€æµ‹ç­‰ï¼‰
     Battery_Init();
 
     Motion_Init();
-    AutoSleep_Init();// ¿É·ÅÔÚÆäËû³õÊ¼»¯Ö®ºó
+    AutoSleep_Init();// å¯æ”¾åœ¨å…¶ä»–åˆå§‹åŒ–ä¹‹å
 }
 
-/* Ö÷Ñ­»·´¦Àíº¯Êı */
+/* ä¸»å¾ªç¯å¤„ç†å‡½æ•° */
 void App_Process(void)
 {
-    // ³¤°´¿ª¹Ø»ú£¨»á×èÈû£¬¹Ø»úÊ±Ö»µÈ´ı³¤°´¿ª»ú£©
+    // é•¿æŒ‰å¼€å…³æœºï¼ˆä¼šé˜»å¡ï¼Œå…³æœºæ—¶åªç­‰å¾…é•¿æŒ‰å¼€æœºï¼‰
     Power_HandleLongPress();
 
-    // ´¦ÀíÃëĞÄÌø
+    // å¤„ç†ç§’é’Ÿä¸­æ–­æ ‡å¿—ä½ï¼Œæ‰§è¡Œæ¯ç§’å¤„ç†å‡½æ•°
     if (second_tick_flag)
     {
         second_tick_flag = 0;
-        MyRTC_ReadTime();         // ¸üĞÂ MyRTC_Time Êı×é£¨Äê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢Ãë£©
-        Alarm_CheckSecondTick();  // ÄÖÖÓ¼ì²é
-        Countdown_SecondTick();   // µ¹¼ÆÊ±
-        AutoSleep_Tick();         // ×Ô¶¯Ï¢ÆÁ¼ÆÊ±
+        MyRTC_ReadTime();         // æ›´æ–° MyRTC_Time æ•°ç»„ï¼ˆå¹´ã€æœˆã€æ—¥ã€æ—¶ã€åˆ†ã€ç§’ï¼‰
+        Alarm_CheckSecondTick();  // é—¹é’Ÿæ£€æŸ¥
+        Countdown_SecondTick();   // å€’è®¡æ—¶
+        AutoSleep_Tick();         // è‡ªåŠ¨æ¯å±è®¡æ—¶
     }
 
     uint8_t keynum = Key_Read();
 
-    // ¶¯×÷»½ĞÑ£¨¼´Ê¹ÔÚÏ¢ÆÁÒ²¼ì²â£©
+    // åŠ¨ä½œå”¤é†’å¤„ç†ï¼ˆå³ä½¿åœ¨æ¯å±çŠ¶æ€ä¸‹ä¹Ÿæ£€æµ‹ï¼‰
     Motion_Process();
 
     if (AutoSleep_IsSleeping())
     {
         if (keynum)
         {
-            AutoSleep_Wakeup();// ÈÎÒâ°´¼ü»½ĞÑ£¬µ«²»ÏìÓ¦±¾´Î°´¼ü
-            Menu_Update(0);    // Ë¢ĞÂÆÁÄ»
+            AutoSleep_Wakeup();// ä»»æ„æŒ‰é”®å”¤é†’ï¼Œä½†ä¸å“åº”æœ¬æ¬¡æŒ‰é”®
+            Menu_Update(0);    // åˆ·æ–°å±å¹•
         }
     }
     else
     {
         if (keynum)
         {
-            AutoSleep_Reset(); // Õı³£×´Ì¬ÓĞ°´¼ü£¬ÖØÖÃÎŞ²Ù×÷¼ÆÊ±
+            AutoSleep_Reset(); // æ­£å¸¸çŠ¶æ€æœ‰æŒ‰é”®ï¼Œé‡ç½®æ— æ“ä½œè®¡æ—¶
         }
-        Menu_Update(keynum);   // Õı³£°´¼ü´¦Àí
+        Menu_Update(keynum);   // æ­£å¸¸æŒ‰é”®å¤„ç†
     }
 }

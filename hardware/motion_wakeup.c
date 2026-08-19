@@ -1,65 +1,71 @@
 #include "stm32f10x.h"                  // Device header
 #include "motion_wakeup.h"
-#include "MPU6050.h"       // MPU6050 Çý¶¯
-#include "auto_sleep.h"    // ÓÃÓÚ»½ÐÑ
-#include <math.h>          // ¼ÆËã½Ç¶È
+#include "MPU6050.h"       // MPU6050 ï¿½ï¿½ï¿½ï¿½
+#include "auto_sleep.h"    // ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½
+#include <math.h>          // ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½
 #include <stdio.h>         //NULL
 
-static uint8_t motion_flag = 0;   // ÓÉ TIM2 ÖÐ¶ÏÖÃÎ»
+static uint8_t motion_flag = 0;   // ï¿½ï¿½ TIM2 ï¿½Ð¶ï¿½ï¿½ï¿½Î»
 
 void Motion_Init(void)
 {
-    MPU6050_Init();        // ³õÊ¼»¯´«¸ÐÆ÷
+    MPU6050_Init();        // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     motion_flag = 0;
 }
 
-/*ÓÉ TIM2 ÖÐ¶Ïµ÷ÓÃ£¬ÉèÖÃ¼ì²â±êÖ¾*/
+/*ï¿½ï¿½ TIM2 ï¿½Ð¶Ïµï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½Ö¾*/
 void Motion_SetFlag(void)
 {
     motion_flag = 1;
 }
 
-/*¼òµ¥Ì§ÊÖ¼ì²â£º¼ÆËã¼ÓËÙ¶È¼ÆÓëÖØÁ¦·½ÏòµÄ¼Ð½Ç*/
+/*ï¿½ï¿½Ì§ï¿½Ö¼ï¿½â£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼Ð½ï¿½*/
 /*
 static uint8_t IsWristRaised(void)
 {
     int16_t ax, ay, az;
     MPU6050_GetData(&ax, &ay, &az, NULL, NULL, NULL);
 
-    // ¼ÆËãºÏ¼ÓËÙ¶ÈÏòÁ¿ÓëZÖáµÄ¼Ð½Ç£¨¼ÙÉèZÖá´¹Ö±ÏòÉÏ£©
+    // ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½Ä¼Ð½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½á´¹Ö±ï¿½ï¿½ï¿½Ï£ï¿½
     float norm = sqrtf(ax*ax + ay*ay + az*az);
     if (norm < 0.01f) return 0;
 
-    float cos_theta = az / norm;   // ZÖá·ÖÁ¿Õ¼±È
-    // cos_theta < cos(45¡ã) ¡Ö 0.707 ±íÊ¾ÇãÐ±³¬¹ý45¶È
+    float cos_theta = az / norm;   // Zï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½
+    // cos_theta < cos(45ï¿½ï¿½) ï¿½ï¿½ 0.707 ï¿½ï¿½Ê¾ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½45ï¿½ï¿½
     if (cos_theta < 0.707f) return 1;
     return 0;
 }
 */
-/*°ÑÅÐ¶ÏÌõ¼þ±ä»»Ò»ÏÂ£¬Ö»ÓÃÕûÊý³Ë·¨ºÍ±È½Ï¡£
-Ô­Ìõ¼þ£º
-cos¦È=az/((ax^2+ay^2+az^2)µÄÆ½·½¸ù)<cos45=Ô¼µÈÓÚ0.707
-Á½±ßÆ½·½£¨×¢Òâ az ¿ÉÄÜÎª¸º£¬µ«Æ½·½ºó³ÉÁ¢£©£º
-az^2<0.5¡Á(ax^2+ay^2+az^2)
-µÈ¼ÛÓÚ£º2¡Áaz^2<ax^2+ay^2+az^2
-¼´£ºaz^2<ax^2+ay^2
+/*ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»»Ò»ï¿½Â£ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½Í±È½Ï¡ï¿½
+Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+cosï¿½ï¿½=az/((ax^2+ay^2+az^2)ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½)<cos45=Ô¼ï¿½ï¿½ï¿½ï¿½0.707
+ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ az ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+az^2<0.5ï¿½ï¿½(ax^2+ay^2+az^2)
+ï¿½È¼ï¿½ï¿½Ú£ï¿½2ï¿½ï¿½az^2<ax^2+ay^2+az^2
+ï¿½ï¿½ï¿½ï¿½az^2<ax^2+ay^2
 */
 static uint8_t IsWristRaised(void)
 {
     int16_t ax, ay, az;
     MPU6050_GetData(&ax, &ay, &az, NULL, NULL, NULL);
 
-    // ÓÃ int32_t ·ÀÖ¹ int16_t Ïà³ËÒç³ö
+    // ï¿½ï¿½ int32_t ï¿½ï¿½Ö¹ int16_t ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     int32_t ax2 = (int32_t)ax * ax;
     int32_t ay2 = (int32_t)ay * ay;
     int32_t az2 = (int32_t)az * az;
 
-    // ÅÐ¶Ï Z Öá·ÖÁ¿ÊÇ·ñÐ¡ÓÚË®Æ½·ÖÁ¿£¬µÈ¼ÛÓÚÇãÐ±½Ç >45¡ã
-    if (az2 < ax2 + ay2) return 1;
-    return 0;
+    // åˆ¤æ–­ Z è½´åˆ†é‡æ˜¯å¦å°äºŽæ°´å¹³åˆ†é‡ï¼Œç­‰ä»·äºŽå€¾æ–œè§’ >45Â°
+    if (az2 < ax2 + ay2) 
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
-/*ÔÚÖ÷Ñ­»·ÖÐµ÷ÓÃ£¬¼ì²éÊÇ·ñÐèÒª»½ÐÑ*/
+/*ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½*/
 void Motion_Process(void)
 {
     if (!motion_flag) return;
@@ -67,7 +73,7 @@ void Motion_Process(void)
 
     if (AutoSleep_IsSleeping() && IsWristRaised())
     {
-        AutoSleep_Wakeup();     // »½ÐÑÆÁÄ»
-        // »½ÐÑºóÖ÷Ñ­»·»áµ÷ÓÃ Menu_Update Ë¢ÐÂ½çÃæ
+        AutoSleep_Wakeup();     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»
+        // ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Menu_Update Ë¢ï¿½Â½ï¿½ï¿½ï¿½
     }
 }

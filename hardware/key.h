@@ -7,10 +7,10 @@
 #define KEY3_PIN GPIO_Pin_15
 #define KEY_PORT GPIOB
 
-#define DEBOUNCE_MS 20  //消抖时间
-#define TICK_MS 10      //定时中断周期
+#define DEBOUNCE_MS 20  // 娑堟姈鏃堕棿
+#define TICK_MS 10      // 瀹氭椂涓柇鍛ㄦ湡
 
-/******函数声明*****/
+/******鍑芥暟澹版槑*****/
 void Key_Init(void);
 void Key_Tick(void);
 uint8_t Key_Read(void);

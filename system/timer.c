@@ -10,7 +10,7 @@
 #include "motion_wakeup.h"
 #include "emoji.h"
 
-/*ÄÚ²¿º¯ÊýÉùÃ÷*/
+/*å†…éƒ¨å‡½æ•°å£°æ˜Ž*/
 static void Timer2_Init(void);
 static void Timer3_Init(void);
 
@@ -22,28 +22,28 @@ void Timer_Init(void)
 
 static void Timer2_Init(void)
 {
-	/*¿ªÆôÊ±ÖÓ*/
+	/*å¼€å¯æ—¶é’Ÿ*/
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);
 	
-	/*ÅäÖÃÊ±ÖÓÔ´*/
+	/*é…ç½®æ—¶é’Ÿæº*/
 	TIM_InternalClockConfig(TIM2);
 	
-	/*Ê±»ùµ¥Ôª³õÊ¼»¯*/
+	/*æ—¶åŸºå•å…ƒåˆå§‹åŒ–*/
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
 	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseInitStructure.TIM_Period = 1000 - 1;  //¶¨Ê±ÆµÂÊ=CK_PSC/(PSC+1)/(ARR+1)
+	TIM_TimeBaseInitStructure.TIM_Period = 1000 - 1;  //å®šæ—¶é¢‘çŽ‡=CK_PSC/(PSC+1)/(ARR+1)
 	TIM_TimeBaseInitStructure.TIM_Prescaler = 720 - 1;//        =72MHz/720/1000=100Hz=10ms
 	TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0;
 	TIM_TimeBaseInit(TIM2,&TIM_TimeBaseInitStructure);
 	
-	/*ÖÐ¶ÏÊä³öÅäÖÃ*/
+	/*ä¸­æ–­è¾“å‡ºé…ç½®*/
 	TIM_ITConfig(TIM2,TIM_IT_Update,ENABLE);
 	
-	/*NVICÖÐ¶Ï·Ö×é*/
+	/*NVICä¸­æ–­åˆ†ç»„*/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	
-	/*NVICÅäÖÃ*/
+	/*NVICé…ç½®*/
 	NVIC_InitTypeDef NVIC_InitStructure;
 	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -51,81 +51,81 @@ static void Timer2_Init(void)
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_Init(&NVIC_InitStructure);
 	
-	/*TIMÊ¹ÄÜ*/
+	/*TIMä½¿èƒ½*/
 	TIM_Cmd(TIM2,ENABLE);
 }
 
 static void Timer3_Init(void)
 {
-	/*¿ªÆôÊ±ÖÓ*/
+	/*å¼€å¯æ—¶é’Ÿ*/
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,ENABLE);
 	
-	/*ÅäÖÃÊ±ÖÓÔ´*/
+	/*é…ç½®æ—¶é’Ÿæº*/
 	TIM_InternalClockConfig(TIM3);
 	
-	/*Ê±»ùµ¥Ôª³õÊ¼»¯*/
+	/*æ—¶åŸºå•å…ƒåˆå§‹åŒ–*/
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
 	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseInitStructure.TIM_Period = 10000 - 1;  //¶¨Ê±ÆµÂÊ=CK_PSC/(PSC+1)/(ARR+1)
+	TIM_TimeBaseInitStructure.TIM_Period = 10000 - 1;  //å®šæ—¶é¢‘çŽ‡=CK_PSC/(PSC+1)/(ARR+1)
 	TIM_TimeBaseInitStructure.TIM_Prescaler = 7200 - 1;//        =72MHz/7200/10000=1Hz=1s
 	TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0;
 	TIM_TimeBaseInit(TIM3,&TIM_TimeBaseInitStructure);
 	
-	/*ÖÐ¶ÏÊä³öÅäÖÃ*/
+	/*ä¸­æ–­è¾“å‡ºé…ç½®*/
 	TIM_ITConfig(TIM3,TIM_IT_Update,ENABLE);
 	
-	/*NVICÖÐ¶Ï·Ö×é*/
+	/*NVICä¸­æ–­åˆ†ç»„*/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	
-	/*NVICÅäÖÃ*/
+	/*NVICé…ç½®*/
 	NVIC_InitTypeDef NVIC_InitStructure;
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;//ÇÀÕ¼ÓÅÏÈ¼¶¸ßÓÚTIM2
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;//æŠ¢å ä¼˜å…ˆçº§é«˜äºŽTIM2
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_Init(&NVIC_InitStructure);
 	
-	/*TIMÊ¹ÄÜ*/
+	/*TIMä½¿èƒ½*/
 	TIM_Cmd(TIM3,ENABLE);
 }
-/*ÄÚ²¿º¯ÊýÉùÃ÷*/
+/*å†…éƒ¨å‡½æ•°å£°æ˜Ž*/
 static void Timer2_Tasks(void);
 
-/*TIM2 10MSÖÐ¶Ï*/
+/*TIM2 10MSä¸­æ–­*/
 void TIM2_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM2,TIM_IT_Update) == SET)
 	{
 		TIM_ClearITPendingBit(TIM2,TIM_IT_Update);
-		Timer2_Tasks();   // Ö´ÐÐËùÓÐ10ms¼¶ÈÎÎñ
+		Timer2_Tasks();   // æ‰§è¡Œæ‰€æœ‰10msçº§ä»»åŠ¡
 	}
 }
 
-volatile uint8_t second_tick_flag = 0;   // È«¾Ö£¬ÔÚÖ÷Ñ­»·ÖÐ±»Ïû·Ñ
+volatile uint8_t second_tick_flag = 0;   // å…¨å±€ï¼Œåœ¨ä¸»å¾ªçŽ¯ä¸­è¢«æ¶ˆè´¹
 
-/*TIM3 ÃëÖÐ¶Ï*/
+/*TIM3 ç§’ä¸­æ–­*/
 void TIM3_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM3,TIM_IT_Update) == SET){
 		TIM_ClearITPendingBit(TIM3,TIM_IT_Update);
-		second_tick_flag = 1;   // ¸æËßÖ÷Ñ­»·£º1 Ãëµ½ÁË
+		second_tick_flag = 1;   // å‘Šè¯‰ä¸»å¾ªçŽ¯ï¼š1 ç§’åˆ°äº†
 	}
 }
 
 volatile uint8_t emoji_tick_flag = 0;
 
-/*TIM2 10ms ÈÎÎñ·Ö·¢º¯Êý£¨ÄÚ²¿Ê¹ÓÃ£©*/
+/*TIM2 10ms ä»»åŠ¡åˆ†å‘å‡½æ•°ï¼ˆå†…éƒ¨ä½¿ç”¨ï¼‰*/
 static void Timer2_Tasks(void)
 {
-    Key_Tick();               // °´¼üÉ¨Ãè
-    Buzzer_Tick();            // ·äÃùÆ÷×´Ì¬»ú
-    Countdown_Tick10ms();     // µ¹¼ÆÊ±ÉÁË¸¶¯»­
-    Flashlight_Tick10ms();    // ÊÖµçÍ²¿ª¹Ø¶¯»­
-    DinoGame_Tick();          // Ð¡¿ÖÁúÓÎÏ·×´Ì¬
-    Menu_Tick();              // ²Ëµ¥¹ö¶¯¶¯»­
+    Key_Tick();               // æŒ‰é”®æ‰«æ
+    Buzzer_Tick();            // èœ‚é¸£å™¨çŠ¶æ€æ›´æ–°
+    Countdown_Tick10ms();     // å€’è®¡æ—¶é—ªçƒåŠ¨ç”»
+    Flashlight_Tick10ms();    // æ‰‹ç”µç­’å¼€å…³åŠ¨ç”»
+    DinoGame_Tick();          // å°æé¾™æ¸¸æˆçŠ¶æ€æ›´æ–°
+    Menu_Tick();              // èœå•æ»šåŠ¨åŠ¨ç”»æ›´æ–°
 
-    /* µç³Ø²ÉÑù 100ms Ò»´Î */
+    /* ç”µæ± é‡‡æ · 100ms ä¸€æ¬¡ */
     static uint8_t bat_tick = 0;
     if (++bat_tick >= BATTERY_SAMPLE_INTERVAL_MS / TIM2_TICK_MS)
     {
@@ -133,7 +133,7 @@ static void Timer2_Tasks(void)
         Battery_Update();
     }
 
-    /* Ì§ÊÖ»½ÐÑ¼ì²â 100ms Ò»´Î */
+    /* æŠ¬æ‰‹å”¤é†’æ£€æµ‹ 100ms ä¸€æ¬¡ */
     static uint8_t motion_tick = 0;
     if (++motion_tick >= MOTION_CHECK_INTERVAL_MS / TIM2_TICK_MS)
     {
@@ -141,7 +141,7 @@ static void Timer2_Tasks(void)
         Motion_SetFlag();
     }
 
-    /* ±íÇé¶¯»­Ö¡ 80ms Ò»Ö¡ */
+    /* è¡¨æƒ…åŠ¨ç”»å¸§ 80ms ä¸€å¸§ */
     static uint8_t emoji_timer = 0;
     if (++emoji_timer >= EMOJI_FRAME_INTERVAL_MS / TIM2_TICK_MS)
     {

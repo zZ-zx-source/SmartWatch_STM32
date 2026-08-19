@@ -2,47 +2,47 @@
 #include "myRTC.h"
 #include <time.h>
 
-uint16_t MyRTC_Time[] = {2026, 7, 31, 6, 5, 0};	//����ȫ�ֵ�ʱ�����飬�������ݷֱ�Ϊ�ꡢ�¡��ա�ʱ���֡���
-uint8_t MyRTC_Weekday = 0;   // ȫ�ֱ������洢���ڼ�(0~6,��Ӧ����~����)
+uint16_t MyRTC_Time[] = {2026, 7, 31, 6, 5, 0};	//定义全局的时间数组，数组内容分别为年、月、日、时、分、秒
+uint8_t MyRTC_Weekday = 0;   // 全局变量，存储星期几(0~6,对应周日~周六)
 
 void MyRTC_Init(void)
 {
-	//����ʱ��
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR,ENABLE);//����PWRʱ��
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_BKP,ENABLE);//����BKPʱ��
+	//开启时钟
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR,ENABLE);//开启PWR时钟
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_BKP,ENABLE);//开启BKP时钟
 
-	//���ݼĴ�������ʹ��
-	PWR_BackupAccessCmd(ENABLE);//ʹ��PWR�����Ա��ݼĴ����ķ���
+	//备份寄存器访问使能
+	PWR_BackupAccessCmd(ENABLE);//使用PWR开启对备份寄存器的访问
 	
-	if(BKP_ReadBackupRegister(BKP_DR1) != 0xA5A5)        //ͨ��д�뱸�ݼĴ����ı�־λ�����ж�RTC�Ƿ�Ϊ��һ������
-	{                                                    //if������ִ�е�һ��RTC������
-		RCC_LSEConfig(RCC_LSE_ON);//����LSEʱ��
-		while(RCC_GetFlagStatus(RCC_FLAG_LSERDY) != SET);//�ȴ�LSE׼������
+	if(BKP_ReadBackupRegister(BKP_DR1) != 0xA5A5)        //通过写入备份寄存器的标志位，来判断RTC是否为第一次配置
+	{                                                    //if成立则执行第一次RTC的配置
+		RCC_LSEConfig(RCC_LSE_ON);//开启LSE时钟
+		while(RCC_GetFlagStatus(RCC_FLAG_LSERDY) != SET);//等待LSE准备就绪
 		
-		RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);          //ѡ��RTCCLK��ԴΪLSE
-		RCC_RTCCLKCmd(ENABLE);                           //RTCCLKʹ��
+		RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);          //选择RTCCLK来源为LSE
+		RCC_RTCCLKCmd(ENABLE);                           //RTCCLK使能
 		
-		RTC_WaitForSynchro();                            //�ȴ�ͬ��
-		RTC_WaitForLastTask();                           //�ȴ���һ�β������
+		RTC_WaitForSynchro();                            //等待同步
+		RTC_WaitForLastTask();                           //等待上一次操作完成
 		
-		RTC_SetPrescaler(32768 - 1);                     //����RTCԤ��Ƶ����Ԥ��Ƶ��ļ���Ƶ��Ϊ1Hz
-		RTC_WaitForLastTask();                           //�ȴ���һ�β������
+		RTC_SetPrescaler(32768 - 1);                     //设置RTC预分频器，预分频后的计数频率为1Hz
+		RTC_WaitForLastTask();                           //等待上一次操作完成
 		
 		MyRTC_SetTime();
 		
-		BKP_WriteBackupRegister(BKP_DR1,0xA5A5);         //�ڱ��ݼĴ�����д���Լ��涨�ı�־λ�����ж�RTC�Ƿ�Ϊ��һ������
+		BKP_WriteBackupRegister(BKP_DR1,0xA5A5);         //在备份寄存器中写入自己规定的标志位，来判断RTC是否为第一次配置
 	}
 	else
 	{
-		RTC_WaitForSynchro();                            //�ȴ�ͬ��
-		RTC_WaitForLastTask();                           //�ȴ���һ�β������
+		RTC_WaitForSynchro();                            //等待同步
+		RTC_WaitForLastTask();                           //等待上一次操作完成
 	}	
 }
 
 /*
-//���LSE�޷������³������ڳ�ʼ��������
-//�ɽ���ʼ�������滻Ϊ�������룬ʹ��LSI����RTCCLK
-//LSI�޷��ɱ��õ�Դ���磬������Դ����ʱ��RTC��ʱ����ͣ
+//如果LSE无法起振导致程序卡死在初始化函数中
+//可将初始化函数替换为下述代码，使用LSI当作RTCCLK
+//LSI无法由备用电源供电，故主电源掉电时，RTC走时会暂停
  
 void MyRTC_Init(void)
 {
@@ -71,7 +71,7 @@ void MyRTC_Init(void)
 	}
 	else
 	{
-		RCC_LSICmd(ENABLE);				//��ʹ���ǵ�һ�����ã�Ҳ��Ҫ�ٴο���LSIʱ��
+		RCC_LSICmd(ENABLE);				//即使不是第一次配置，也需要再次开启LSI时钟
 		while (RCC_GetFlagStatus(RCC_FLAG_LSIRDY) != SET);
 		
 		RCC_RTCCLKConfig(RCC_RTCCLKSource_LSI);
@@ -83,43 +83,43 @@ void MyRTC_Init(void)
 }
 */
 
-/*RTC����ʱ��*/
+/*RTC设置时间*/
 void MyRTC_SetTime(void)
 {
-	time_t time_cnt;		//�������������������
-	struct tm time_date;	//��������ʱ����������
+	time_t time_cnt;		//定义秒计数器数据类型
+	struct tm time_date;	//定义日期时间数据类型
 	
-	time_date.tm_year = MyRTC_Time[0] - 1900;		//�������ʱ�丳ֵ������ʱ��ṹ��
+	time_date.tm_year = MyRTC_Time[0] - 1900;		//将数组的时间赋值给日期时间结构体
 	time_date.tm_mon = MyRTC_Time[1] - 1;
 	time_date.tm_mday = MyRTC_Time[2];
 	time_date.tm_hour = MyRTC_Time[3];
 	time_date.tm_min = MyRTC_Time[4];
 	time_date.tm_sec = MyRTC_Time[5];
 	
-	time_cnt = mktime(&time_date) - 8 * 60 * 60;	//����mktime������������ʱ��ת��Ϊ���������ʽ
-													//- 8 * 60 * 60Ϊ��������ʱ������
+	time_cnt = mktime(&time_date) - 8 * 60 * 60;	//调用mktime函数，将日期时间转换为秒计数器格式
+													//- 8 * 60 * 60为东八区的时区调整
 	
-	RTC_SetCounter(time_cnt);						//���������д�뵽RTC��CNT��
+	RTC_SetCounter(time_cnt);						//将秒计数器写入到RTC的CNT中
 	RTC_WaitForLastTask();	
 }
 
-/*RTC��ʱ��*/
+/*RTC读时间*/
 void MyRTC_ReadTime(void)
 {
-	time_t time_cnt;		//�������������������
-	struct tm time_date;	//��������ʱ����������
+	time_t time_cnt;		//定义秒计数器数据类型
+	struct tm time_date;	//定义日期时间数据类型
 	
-	time_cnt = RTC_GetCounter() + 8 * 60 * 60;		//��ȡRTC��CNT����ȡ��ǰ���������
-													//+ 8 * 60 * 60Ϊ��������ʱ������
+	time_cnt = RTC_GetCounter() + 8 * 60 * 60;		//读取RTC的CNT，获取当前的秒计数器
+													//+ 8 * 60 * 60为东八区的时区调整
 	
-	time_date = *localtime(&time_cnt);				//ʹ��localtime���������������ת��Ϊ����ʱ���ʽ
+	time_date = *localtime(&time_cnt);				//使用localtime函数，将秒计数器转换为日期时间格式
 	
-	MyRTC_Time[0] = time_date.tm_year + 1900;		//������ʱ��ṹ�帳ֵ�������ʱ��
+	MyRTC_Time[0] = time_date.tm_year + 1900;		//将日期时间结构体赋值给数组的时间
 	MyRTC_Time[1] = time_date.tm_mon + 1;
 	MyRTC_Time[2] = time_date.tm_mday;
 	MyRTC_Time[3] = time_date.tm_hour;
 	MyRTC_Time[4] = time_date.tm_min;
 	MyRTC_Time[5] = time_date.tm_sec;
-	MyRTC_Weekday = time_date.tm_wday;   // �� localtime �Ľ���л�ȡ����
+	MyRTC_Weekday = time_date.tm_wday;   // 从 localtime 的结果中获取星期
 }
 

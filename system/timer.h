@@ -1,9 +1,9 @@
 #ifndef _TIMER_H
 #define _TIMER_H
 
-#define TIM2_TICK_MS  10   //TIM2 中断周期(ms)
+#define TIM2_TICK_MS  10   // TIM2 涓柇鍛ㄦ湡(ms)
 
-/******函数声明*****/
+/******鍑芥暟澹版槑*****/
 void Timer_Init(void);
 
 #endif
