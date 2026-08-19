@@ -166,24 +166,39 @@
 
 ```
 SmartWatch_STM32/
-├── Start/            # 启动文件和系统配置
-├── Library/          # STM32标准外设库
-├── System/           # 系统模块
-│   ├── Timer.c/h    # 定时器 (TIM2)
-│   ├── MyRTC.c/h    # RTC实时时钟
-│   └── Delay.c/h    # 延时函数
-├── Hardware/          # 硬件驱动层
-│   ├── OLED.c/h      # OLED显示驱动 (SSD1306)
-│   ├── MyI2C.c/h    # 软件I2C主设备
-│   ├── MPU6050.c/h  # 6轴传感器驱动
-│   ├── Key.c/h      # 按键输入处理
-│   ├── LED.c/h      # LED控制
-│   ├── AD.c/h       # ADC电池监测
-│   ├── menu.c/h    # 菜单系统
-│   ├── dino.c/h     # 恐龙游戏
-│   └── SetTime.c/h  # 时间设置
-├── User/             # 用户入口
-└── Project.uvprojx   # Keil工程文件
+├── Start/ # 启动文件与系统启动代码
+├── Library/ # STM32 标准外设库（CMSIS 等）
+├── System/     # 系统服务层：提供基础服务与时基
+│ ├── Timer.c/h         # 定时器驱动：TIM2(10ms)、TIM3(1s) 中断与任务调度
+│ ├── MyRTC.c/h         # RTC 实时时钟驱动（读写时间、星期计算）
+│ └── Delay.c/h         # 微秒/毫秒延时函数
+├── Hardware/   # 硬件驱动层：直接操作外设寄存器、总线时序
+│ ├── LED.c/h           # LED 控制（手电筒）
+│ ├── Key.c/h           # 按键扫描、消抖、长按检测
+│ ├── Buzzer.c/h        # 蜂鸣器控制（非阻塞状态机）
+│ ├── OLED.c/h          # OLED 显示驱动（SSD1306）
+│ ├── OLED_Data.c/h     # OLED 字模与图片数据
+│ ├── AD.c/h            # ADC 采集（用于电池电压检测）
+│ ├── MyI2C.c/h         # 软件 I2C 驱动
+│ ├── MPU6050.c/h       # MPU6050 六轴传感器驱动
+│ └── MPU6050_Reg.h     # MPU6050 寄存器定义与常量宏
+├── App/        # 应用层：业务逻辑、界面管理、功能模块
+│ ├── app.c/h           # 应用初始化和主循环调度（初始化所有模块）
+│ ├── menu.c/h          # 菜单系统（状态机、滚动动画、状态栏）
+│ ├── time_app.c/h      # 时间功能列表（Time Setting / Alarm / Countdown）
+│ ├── time_setting.c/h  # 时间设置子界面
+│ ├── alarm.c/h         # 闹钟模块
+│ ├── countdown.c/h     # 倒计时模块
+│ ├── flashlight.c/h    # 手电筒模块（LED 控制与动画）
+│ ├── game_app.c/h      # 游戏列表
+│ ├── dino_game.c/h     # 谷歌小恐龙游戏
+│ ├── emoji.c/h         # 动态表情模块
+│ ├── auto_sleep.c/h    # 自动息屏管理
+│ ├── motion_wakeup.c/h # 抬手唤醒检测（MPU6050 数据解析）
+│ ├── battery.c/h       # 电池电量计算与图标管理
+│ └── power.c/h         # 电源管理（模拟开关机）
+├── User/ # 用户入口
+└── Project.uvprojx # Keil 工程文件
 ```
 
 ### 主循环流程
