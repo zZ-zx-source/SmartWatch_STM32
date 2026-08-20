@@ -71,9 +71,7 @@
   </table>
 </div>
 
-<p align="center"><strong>视频链接</strong></p>
-
-
+[点击观看项目演示视频](https://www.bilibili.com/video/BV1fB8F63Evb/)
 
 ---
 
