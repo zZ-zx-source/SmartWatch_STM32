@@ -1,7 +1,7 @@
 #ifndef _POWER_H
 #define _POWER_H
 
-/******º¯ÊýÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜Ž*****/
 void Power_HandleLongPress(void);
 
 #endif

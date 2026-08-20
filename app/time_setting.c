@@ -4,11 +4,11 @@
 #include "OLED.h"
 #include <stdio.h>
 
-/* ±¾µØ¸±±¾£ºÄê¡¢ÔÂ¡¢ÈÕ¡¢Ê±¡¢·Ö¡¢Ãë */
+/* æœ¬åœ°å‰¯æœ¬ï¼šå¹´ã€æœˆã€æ—¥ã€æ—¶ã€åˆ†ã€ç§’ */
 static uint16_t setting_values[6];
 static uint8_t selected_row = 0;   // 0~5
 
-/*½øÈëÊ±¼äÉèÖÃ½çÃæÊ±¼ÓÔØµ±Ç° RTC Ê±¼ä*/
+/*è¿›å…¥æ—¶é—´è®¾ç½®ç•Œé¢æ—¶åŠ è½½å½“å‰ RTC æ—¶é—´*/
 void TimeSetting_Enter(void)
 {
     for (int i = 0; i < 6; i++)
@@ -18,18 +18,18 @@ void TimeSetting_Enter(void)
     selected_row = 0;
 }
 
-/*»æÖÆÊ±¼äÉèÖÃ½çÃæ£¨·ÖÁ½Ò³£¬Ã¿Ò³ÈıĞĞ£©*/
+/*ç»˜åˆ¶æ—¶é—´è®¾ç½®ç•Œé¢ï¼ˆåˆ†ä¸¤é¡µï¼Œæ¯é¡µä¸‰è¡Œï¼‰*/
 void TimeSetting_Draw(void)
 {
-    uint8_t page_start = (selected_row / 3) * 3;   // 0 »ò 3
-    uint8_t y = 16;   // ×´Ì¬À¸ÏÂ·½µÚÒ»ĞĞ
+    uint8_t page_start = (selected_row / 3) * 3;   // 0 æˆ– 3
+    uint8_t y = 16;   // çŠ¶æ€æ ä¸‹æ–¹ç¬¬ä¸€è¡Œ
 
     for (int i = 0; i < 3; i++)
     {
         uint8_t row = page_start + i;
         char buf[16];
 
-        // ÔÂ·İ¡¢ÈÕÆÚ¡¢Ê±·ÖÃë²¹Áã
+        // æœˆä»½ã€æ—¥æœŸã€æ—¶åˆ†ç§’è¡¥é›¶
         if (row == 0)        sprintf(buf, "year:%d", setting_values[0]);
         else if (row == 1)   sprintf(buf, "month:%02d", setting_values[1]);
         else if (row == 2)   sprintf(buf, "day:%02d", setting_values[2]);
@@ -40,32 +40,32 @@ void TimeSetting_Draw(void)
         OLED_ShowString(0, y + i * 16, buf, OLED_8X16);
     }
 
-    // ¸ßÁÁµ±Ç°Ñ¡ÖĞĞĞ£¨Ïà¶ÔÓÚµ±Ç°Ò³µÄÎ»ÖÃ£©
+    // é«˜äº®å½“å‰é€‰ä¸­è¡Œï¼ˆç›¸å¯¹äºå½“å‰é¡µçš„ä½ç½®ï¼‰
     uint8_t visible_pos = selected_row - page_start;
     OLED_ReverseArea(0, y + visible_pos * 16, 128, 16);
 }
 
 /**
- * ´¦ÀíÊ±¼äÉèÖÃ½çÃæµÄ°´¼ü
- * ĞÂµÄÒ³Ãæ×´Ì¬£¨PAGE_TIME »ò PAGE_TIME_SETTING£©
+ * å¤„ç†æ—¶é—´è®¾ç½®ç•Œé¢çš„æŒ‰é”®
+ * æ–°çš„é¡µé¢çŠ¶æ€ï¼ˆPAGE_TIME æˆ– PAGE_TIME_SETTINGï¼‰
  */
 page_state_t TimeSetting_HandleKey(uint8_t key)
 {
-    if (key == 1)   // ·µ»Ø£¬±£´æĞŞ¸Ä
+    if (key == 1)   // è¿”å›ï¼Œä¿å­˜ä¿®æ”¹
     {
         for (int i = 0; i < 6; i++)
 		{
             MyRTC_Time[i] = setting_values[i];
 		}
-        MyRTC_SetTime();          // ¸üĞÂ RTC ¼ÆÊıÆ÷
+        MyRTC_SetTime();          // æ›´æ–° RTC è®¡æ•°å™¨
         return PAGE_TIME;
     }
-    else if (key == 2)   // ÒÆ¶¯Ñ¡ÔñĞĞ
+    else if (key == 2)   // ç§»åŠ¨é€‰æ‹©è¡Œ
     {
         selected_row = (selected_row + 1) % 6;
         return PAGE_TIME_SETTING;
     }
-    else if (key == 3)   // Ôö¼Óµ±Ç°Ñ¡ÖĞÏîµÄÖµ
+    else if (key == 3)   // å¢åŠ å½“å‰é€‰ä¸­é¡¹çš„å€¼
     {
         switch (selected_row)
         {
@@ -96,5 +96,5 @@ page_state_t TimeSetting_HandleKey(uint8_t key)
         }
         return PAGE_TIME_SETTING;
     }
-    return PAGE_TIME_SETTING;   // ÆäËû°´¼üºöÂÔ
+    return PAGE_TIME_SETTING;   // å…¶ä»–æŒ‰é”®å¿½ç•¥
 }

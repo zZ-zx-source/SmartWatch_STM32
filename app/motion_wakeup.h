@@ -1,9 +1,9 @@
 #ifndef _MOTION_WAKEUP_H
 #define _MOTION_WAKEUP_H
 
-#define MOTION_CHECK_INTERVAL_MS  100    //Ã¿100msÖĞ¶Ï¼ì²âÒ»´Î
+#define MOTION_CHECK_INTERVAL_MS  100    //æ¯100msä¸­æ–­æ£€æµ‹ä¸€æ¬¡
 
-/******º¯ÊıÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜*****/
 void Motion_Init(void);
 void Motion_SetFlag(void);
 void Motion_Process(void);

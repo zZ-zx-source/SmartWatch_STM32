@@ -2,7 +2,7 @@
 #define __MYI2C_H
 #include <stdint.h>
 
-/******º¯ÊýÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜Ž*****/
 void MyI2C_Init(void);
 void MyI2C_Start(void);
 void MyI2C_Stop(void);

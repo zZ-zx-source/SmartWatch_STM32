@@ -1,10 +1,10 @@
 #include "stm32f10x.h"                  // Device header
 #include "buzzer.h"
 
-/* ·äÃùÆ÷×´Ì¬»ú */
-static uint8_t alarm_active = 0;    // 1£ºÄÖÖÓÕıÔÚÃù½Ğ
+/* èœ‚é¸£å™¨çŠ¶æ€æœº */
+static uint8_t alarm_active = 0;    // 1ï¼šé—¹é’Ÿæ­£åœ¨é¸£å«
 static uint8_t beep_phase = 0;      // 0~3
-static uint8_t beep_tick = 0;       // ¼ÆÊı£¬µ¥Î» 10ms
+static uint8_t beep_tick = 0;       // è®¡æ•°ï¼Œå•ä½ 10ms
 
 void Buzzer_Init(void)
 {
@@ -16,28 +16,28 @@ void Buzzer_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB,&GPIO_InitStructure);
 	
-	GPIO_ResetBits(GPIOB, GPIO_Pin_1);   // ³õÊ¼¹Ø±Õ
+	GPIO_ResetBits(GPIOB, GPIO_Pin_1);   // åˆå§‹å…³é—­
 }
 
-/*Æô¶¯ÄÖÖÓÃù½Ğ*/
+/*å¯åŠ¨é—¹é’Ÿé¸£å«*/
 void Buzzer_StartAlarm(void)
 {
     alarm_active = 1;
     beep_phase = 0;
     beep_tick = 0;
-    GPIO_SetBits(GPIOB, GPIO_Pin_1);     // ¿ªÊ¼Ïì
+    GPIO_SetBits(GPIOB, GPIO_Pin_1);     // å¼€å§‹å“
 }
 
-/*Í£Ö¹Ãù½Ğ*/
+/*åœæ­¢é¸£å«*/
 void Buzzer_StopAlarm(void)
 {
     alarm_active = 0;
-    GPIO_ResetBits(GPIOB, GPIO_Pin_1);   // ¹Ø±Õ·äÃùÆ÷
+    GPIO_ResetBits(GPIOB, GPIO_Pin_1);   // å…³é—­èœ‚é¸£å™¨
 }
 
 /**
- * Ã¿ 10ms µ÷ÓÃÒ»´Î£¨ÓÉ TIM2 ÖĞ¶Ï´¥·¢£©
- * ÊµÏÖ·Ç×èÈûµÄÄÖÖÓÃù½ĞÄ£Ê½£ºÏì100ms£¬Í£100ms£¬Ïì100ms£¬Í£700ms£¬Ñ­»·
+ * æ¯ 10ms è°ƒç”¨ä¸€æ¬¡ï¼ˆç”± TIM2 ä¸­æ–­è§¦å‘ï¼‰
+ * å®ç°éé˜»å¡çš„é—¹é’Ÿé¸£å«æ¨¡å¼ï¼šå“100msï¼Œåœ100msï¼Œå“100msï¼Œåœ700msï¼Œå¾ªç¯
  */
 void Buzzer_Tick(void)
 {
@@ -46,35 +46,35 @@ void Buzzer_Tick(void)
     beep_tick++;
     switch (beep_phase)
     {
-        case 0:   // Ïì 100ms
+        case 0:   // å“ 100ms
             if (beep_tick >= 10)   // 10 * 10ms = 100ms
             {
                 beep_tick = 0;
-                GPIO_ResetBits(GPIOB, GPIO_Pin_1);  // Í£Ö¹
+                GPIO_ResetBits(GPIOB, GPIO_Pin_1);  // åœæ­¢
                 beep_phase = 1;
             }
             break;
-        case 1:   // Í£ 100ms
+        case 1:   // åœ 100ms
             if (beep_tick >= 10)
             {
                 beep_tick = 0;
-                GPIO_SetBits(GPIOB, GPIO_Pin_1);    // ÔÙÏì
+                GPIO_SetBits(GPIOB, GPIO_Pin_1);   // å†å“
                 beep_phase = 2;
             }
             break;
-        case 2:   // Ïì 100ms
+        case 2:   // å“ 100ms
             if (beep_tick >= 10)
             {
                 beep_tick = 0;
-                GPIO_ResetBits(GPIOB, GPIO_Pin_1);  // Í£Ö¹
+                GPIO_ResetBits(GPIOB, GPIO_Pin_1);  // åœæ­¢
                 beep_phase = 3;
             }
             break;
-        case 3:   // Í£ 700ms
+        case 3:   // åœ 700ms
             if (beep_tick >= 70)   // 70 * 10ms = 700ms
             {
                 beep_tick = 0;
-                GPIO_SetBits(GPIOB, GPIO_Pin_1);    // ÖØĞÂ¿ªÊ¼
+                GPIO_SetBits(GPIOB, GPIO_Pin_1);    // é‡æ–°å¼€å§‹
                 beep_phase = 0;
             }
             break;

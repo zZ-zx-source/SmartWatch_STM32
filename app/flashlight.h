@@ -2,7 +2,7 @@
 #define _FLASHLIGHT_H
 #include <stdint.h>
 
-/******º¯ÊýÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜Ž*****/
 void Flashlight_Init(void);
 void Detail_Flashlight(void);
 uint8_t Flashlight_ProcessKey(uint8_t keynum);

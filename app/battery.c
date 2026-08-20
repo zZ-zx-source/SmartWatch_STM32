@@ -3,68 +3,68 @@
 #include "AD.h"           // AD_GetValue
 #include "OLED.h"
 
-/* »¬¶¯Æ½¾ù´°¿Ú£¬È¡×î½ü10´ÎADC²ÉÑùµÄÆ½¾ùÖµ£¬ÈÃµçÁ¿°Ù·Ö±ÈÏÔÊ¾¸üÆ½ÎÈ*/
+/* æ»‘åŠ¨å¹³å‡çª—å£ï¼Œå–æœ€è¿‘10æ¬¡ADCé‡‡æ ·çš„å¹³å‡å€¼ï¼Œè®©ç”µé‡ç™¾åˆ†æ¯”æ˜¾ç¤ºæ›´å¹³ç¨³*/
 #define FILTER_SIZE  10
 
-static uint16_t adc_buffer[FILTER_SIZE];// ´æ´¢×î½ü10´ÎADCÖµ
-static uint8_t buf_index = 0;           // µ±Ç°ÒªÌæ»»µÄ»º³åË÷Òı£¨»·ĞÎ£©
-static uint32_t adc_sum = 0;            // µ±Ç°»º³åÇøËùÓĞÖµµÄ×ÜºÍ
-static uint8_t buf_filled = 0;          // ±ê¼Ç»º³åÇøÊÇ·ñÒÑÌîÂú
+static uint16_t adc_buffer[FILTER_SIZE];// å­˜å‚¨æœ€è¿‘10æ¬¡ADCå€¼
+static uint8_t buf_index = 0;           // å½“å‰è¦æ›¿æ¢çš„ç¼“å†²ç´¢å¼•ï¼ˆç¯å½¢ï¼‰
+static uint32_t adc_sum = 0;            // å½“å‰ç¼“å†²åŒºæ‰€æœ‰å€¼çš„æ€»å’Œ
+static uint8_t buf_filled = 0;          // æ ‡è®°ç¼“å†²åŒºæ˜¯å¦å·²å¡«æ»¡
 
-static uint8_t current_percent = 100;   // µ±Ç°µçÁ¿°Ù·Ö±È
-static uint8_t last_bars = 3;           // ÉÏÒ»´ÎÏÔÊ¾µÄ¸ñÊı£¨0~3£©
+static uint8_t current_percent = 100;   // å½“å‰ç”µé‡ç™¾åˆ†æ¯”
+static uint8_t last_bars = 3;           // ä¸Šä¸€æ¬¡æ˜¾ç¤ºçš„æ ¼æ•°ï¼ˆ0~3ï¼‰
 
-/* Âú¸ñµç³ØÍ¼±ê */
+/* æ»¡æ ¼ç”µæ± å›¾æ ‡ */
 extern const uint8_t BatteryFull[];
 
 void Battery_Init(void)
 {
-    // Ô¤ÌîÂË²¨»º³åÇø
+    // é¢„å¡«æ»¤æ³¢ç¼“å†²åŒº
     for (int i = 0; i < FILTER_SIZE; i++)
     {
-        adc_buffer[i] = AD_GetValue();  // ¶ÁÈ¡Ò»´ÎADC
-        adc_sum += adc_buffer[i];       // ÀÛ¼ÓÇóºÍ
+        adc_buffer[i] = AD_GetValue();  // è¯»å–ä¸€æ¬¡ADC
+        adc_sum += adc_buffer[i];       // ç´¯åŠ æ±‚å’Œ
     }
-    buf_filled = 1;                     // »º³åÇøÒÑÂú
+    buf_filled = 1;                     // ç¼“å†²åŒºå·²æ»¡
     current_percent = 100;
     last_bars = 3;
 }
 
 /**
- * ¶ÁÈ¡ ADC£¬¸üĞÂµçÁ¿°Ù·Ö±ÈºÍµç³ØÍ¼±ê£¨¾Ö²¿Ë¢ĞÂ£©
- * Ã¿ 100ms µ÷ÓÃÒ»´Î£¬ÓÉ TIM2 ÖĞ¶ÏÇı¶¯
+ * è¯»å– ADCï¼Œæ›´æ–°ç”µé‡ç™¾åˆ†æ¯”å’Œç”µæ± å›¾æ ‡ï¼ˆå±€éƒ¨åˆ·æ–°ï¼‰
+ * æ¯ 100ms è°ƒç”¨ä¸€æ¬¡ï¼Œç”± TIM2 ä¸­æ–­é©±åŠ¨
  */
 void Battery_Update(void)
 {
-    uint16_t raw = AD_GetValue();  // ĞÂ²ÉÑùÖµ
+    uint16_t raw = AD_GetValue();  // æ–°é‡‡æ ·å€¼
 
-    // »¬¶¯Æ½¾ù
-    adc_sum -= adc_buffer[buf_index];                  // ¼õÈ¥×î¾ÉÖµ
-    adc_sum += raw;                                    // ¼ÓÉÏĞÂÖµ
-    adc_buffer[buf_index] = raw;                       // ¸üĞÂ»º³åÇø
-    buf_index = (buf_index + 1) % FILTER_SIZE;         // ÒÆ¶¯Ë÷Òı£¬ĞÎ³É»·ĞÎ
+    // æ»‘åŠ¨å¹³å‡
+    adc_sum -= adc_buffer[buf_index];                  // å‡å»æœ€æ—§å€¼
+    adc_sum += raw;                                    // åŠ ä¸Šæ–°å€¼
+    adc_buffer[buf_index] = raw;                       // æ›´æ–°ç¼“å†²åŒº
+    buf_index = (buf_index + 1) % FILTER_SIZE;         // ç§»åŠ¨ç´¢å¼•ï¼Œå½¢æˆç¯å½¢
     if (!buf_filled && buf_index == 0) buf_filled = 1;
-    uint16_t avg = adc_sum / FILTER_SIZE;              // ¼ÆËãÆ½¾ùÖµ
+    uint16_t avg = adc_sum / FILTER_SIZE;              // è®¡ç®—å¹³å‡å€¼
 
-    // Ó³Éäµ½ 0~100%£¨¸ù¾İÊµ¼Ê·ÖÑ¹ĞŞ¸Ä£©
+    // æ˜ å°„åˆ° 0~100%ï¼ˆæ ¹æ®å®é™…åˆ†å‹ä¿®æ”¹ï¼‰
     uint8_t percent = (uint32_t)avg * 100 / 4095;
     if (percent > 100) percent = 100;
 
-    // ¼ÆËãÓ¦ÏÔÊ¾µÄ¸ñÊı
+    // è®¡ç®—åº”æ˜¾ç¤ºçš„æ ¼æ•°
     uint8_t bars;
     if (percent == 0)      bars = 0;
     else if (percent <= 33) bars = 1;
     else if (percent <= 66) bars = 2;
     else                    bars = 3;
 
-    // ±ÜÃâÖØ¸´Ë¢ĞÂ
+    // é¿å…é‡å¤åˆ·æ–°
     if (percent == current_percent && bars == last_bars) return;
 
     current_percent = percent;
     last_bars = bars;
 }
 
-/*·µ»Øµ±Ç°µçÁ¿°Ù·Ö±È£¨¹©×´Ì¬À¸µ÷ÓÃ£©*/
+/*è¿”å›å½“å‰ç”µé‡ç™¾åˆ†æ¯”ï¼ˆä¾›çŠ¶æ€æ è°ƒç”¨ï¼‰*/
 uint8_t Battery_GetPercent(void)
 {
     return current_percent;

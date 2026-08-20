@@ -2,9 +2,9 @@
 #define _AUTO_SLEEP_H
 #include <stdint.h>
 
-#define SLEEP_TIMEOUT_SEC  20   // 20秒无操作进入息屏
+#define SLEEP_TIMEOUT_SEC  20   // 20绉掓棤鎿嶄綔杩涘叆鎭睆
 
-/******函数声明*****/
+/******鍑芥暟澹版槑*****/
 void AutoSleep_Init(void);
 void AutoSleep_Reset(void);
 void AutoSleep_Tick(void);

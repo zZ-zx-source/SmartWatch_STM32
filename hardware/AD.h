@@ -2,7 +2,7 @@
 #define __AD_H
 #include <stdint.h>
 
-/******º¯ÊýÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜Ž*****/
 void AD_Init(void);
 uint16_t AD_GetValue(void);
 

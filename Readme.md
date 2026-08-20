@@ -59,17 +59,21 @@
   <br>
   <table>
     <tr>
-      <td align="center"><img src="./images/hardware_photo1.jpg" width="200"><br>主界面</td>
-      <td align="center"><img src="./images/hardware_photo2.jpg" width="200"><br>菜单界面</td>
-      <td align="center"><img src="./images/hardware_photo3.jpg" width="200"><br>时间功能界面</td>
+      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxN3dS.jpg" width="200"><br>主界面</td>
+      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxNtRs.jpg" width="200"><br>菜单界面</td>
+      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxNWsx.jpg" alt="pmxNWsx.jpg" width="200"><br>时间功能界面</td>
     </tr>
     <tr>
-      <td align="center"><img src="./images/hardware_photo4.jpg" width="200"><br>手电筒界面</td>
-      <td align="center"><img src="./images/hardware_photo6.jpg" width="200"><br>游戏功能界面</td>
-      <td align="center"><img src="./images/hardware_photo7.jpg" width="200"><br>表情包界面</td>
+      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxN5dO.jpg" width="200"><br>手电筒界面</td>
+      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxN4eK.jpg" width="200"><br>游戏功能界面</td>
+      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxN7JH.jpg" width="200"><br>表情包界面</td>
     </tr>
   </table>
 </div>
+
+<p align="center"><strong>视频链接</strong></p>
+
+
 
 ---
 
@@ -106,28 +110,10 @@
 ### 实物连接图
 <div align="center">
 <p align="center">
-    <img src="./images/hardware_photo.jpg" width="400"><br>
+    <img src="https://s41.ax1x.com/2026/08/20/pmxNeGd.jpg" alt="pmxNeGd.jpg" width="400"><br>
     智能手表实物整体图
   </p>
   <br>
-  <table>
-    <tr>
-      <td align="center"><img src="./images/feature1.gif" width="250"><br>自动息屏/抬手唤醒/按键唤醒</td>
-      <td align="center"><img src="./images/feature2.gif" width="250"><br>菜单切换</td>
-    </tr>
-    <tr>
-      <td align="center"><img src="./images/feature3.gif" width="250"><br>设置时间/闹钟/倒计时</td>
-      <td align="center"><img src="./images/feature4.gif" width="250"><br>手电筒功能</td>
-    </tr>
-    <tr>
-      <td align="center"><img src="./images/feature5.gif" width="250"><br>谷歌小恐龙游戏</td>
-      <td align="center"><img src="./images/feature6.gif" width="250"><br>表情包显示</td>
-    </tr>
-    <tr>
-      <td align="center"><img src="./images/feature7.gif" width="250"><br>模拟电池使用情况</td>
-      <td></td>
-    </tr>
-  </table>
 </div>
 
 ---

@@ -5,12 +5,12 @@
 
 static uint8_t is_on = 0;
 
-/* ¶¯»­Ïà¹Ø */
-static uint8_t anim_counter = 0;   // ·´É«³ÖÐøÊ±¼ä (µ¥Î»:10ms)
-static uint8_t anim_active = 0;    // 1: ÕýÔÚ·´É«¶¯»­ÖÐ
-static uint8_t anim_ready = 0;     // 1: ¶¯»­½áÊø£¬´ýÖ´ÐÐ×´Ì¬·­×ª
+/* åŠ¨ç”»ç›¸å…³ */
+static uint8_t anim_counter = 0;   // åè‰²æŒç»­æ—¶é—´ (å•ä½:10ms)
+static uint8_t anim_active = 0;    // 1: æ­£åœ¨åè‰²åŠ¨ç”»ä¸­
+static uint8_t anim_ready = 0;     // 1: åŠ¨ç”»ç»“æŸï¼Œå¾…æ‰§è¡ŒçŠ¶æ€ç¿»è½¬
 
-/*±£Ö¤led³õÊ¼×´Ì¬ÎªÏ¨Ãð*/
+/*ä¿è¯ledåˆå§‹çŠ¶æ€ä¸ºç†„ç­*/
 void Flashlight_Init(void)
 {
 	is_on = 0;
@@ -21,30 +21,30 @@ void Flashlight_Init(void)
     anim_ready = 0;
 }
 
-/*¸ù¾Ýis_onÏÔÊ¾ON»òÕßOFF*/
+/*æ ¹æ®is_onæ˜¾ç¤ºONæˆ–è€…OFF*/
 void Detail_Flashlight(void)
 {
 	if(is_on)
 	{
-		OLED_ShowString(36,24,"ON ",OLED_16X32);//¶àÐ´Ò»¸ö¿Õ¸ñÇåµô¾É²ÐÓ°
+		OLED_ShowString(36,24,"ON ",OLED_16X32);//å¤šå†™ä¸€ä¸ªç©ºæ ¼æ¸…æŽ‰æ—§æ®‹å½±
 	}
 	else
 	{
 		OLED_ShowString(36,24,"OFF",OLED_16X32);
 	}
-	// Èç¹ûÕýÔÚ·´É«¶¯»­ÖÐ£¬¶ÔÎÄ×ÖÇøÓòÈ¡·´
+	// å¦‚æžœæ­£åœ¨åè‰²åŠ¨ç”»ä¸­ï¼Œå¯¹æ–‡å­—åŒºåŸŸå–å
     if (anim_active && anim_counter > 0)
     {
-        OLED_ReverseArea(36,24,48,32);   // "OFF" »ò "ON " ¿í¶È¾ùÎª 3×Ö·û¡Á16=48ÏñËØ
+        OLED_ReverseArea(36,24,48,32);   // "OFF" æˆ– "ON " å®½åº¦å‡ä¸º 3å­—ç¬¦Ã—16=48åƒç´ 
     }
 }
 
-/* ´¦ÀíÊÖµçÍ²½çÃæ°´¼ü
- * 0 °´¼üÎ´´¦Àí £»1°´¼üÒÑ´¦Àí£¬×´Ì¬¸Ä±ä
+/* å¤„ç†æ‰‹ç”µç­’ç•Œé¢æŒ‰é”®
+ * 0 æŒ‰é”®æœªå¤„ç† ï¼›1æŒ‰é”®å·²å¤„ç†ï¼ŒçŠ¶æ€æ”¹å˜
 */
 uint8_t Flashlight_ProcessKey(uint8_t keynum)
 {
-	// ¶¯»­½áÊøºóÖ´ÐÐ×´Ì¬·­×ª
+	// åŠ¨ç”»ç»“æŸåŽæ‰§è¡ŒçŠ¶æ€ç¿»è½¬
     if (anim_ready)
     {
         anim_ready = 0;
@@ -53,22 +53,22 @@ uint8_t Flashlight_ProcessKey(uint8_t keynum)
             LED_SetState(LED_ON);
         else
             LED_SetState(LED_OFF);
-        return 1;   // ×´Ì¬ÒÑ±ä£¬ÇëÇóÖØ»æ
+        return 1;   // çŠ¶æ€å·²å˜ï¼Œè¯·æ±‚é‡ç»˜
     }
 	
-	if(keynum != 3) return 0;//Ö»¹Ø×¢key3¼ü£¬ÆäÓà°´¼ü·µ»Ø0
+	if(keynum != 3) return 0;//åªå…³æ³¨key3é”®ï¼Œå…¶ä½™æŒ‰é”®è¿”å›ž0
 	
-	// Æô¶¯¶¯»­£º·´É« 200ms£¨20¡Á10ms£©
+	// å¯åŠ¨åŠ¨ç”»ï¼šåè‰² 200msï¼ˆ20Ã—10msï¼‰
     if (!anim_active)
     {
         anim_counter = 20;   // 200ms
         anim_active = 1;
-        return 1;            // ÇëÇóÖØ»æÒÔÏÔÊ¾·´É«
+        return 1;            // è¯·æ±‚é‡ç»˜ä»¥æ˜¾ç¤ºåè‰²
     }
-	return 0;   // ¶¯»­½øÐÐÖÐ£¬ºöÂÔ°´¼ü
+	return 0;   // åŠ¨ç”»è¿›è¡Œä¸­ï¼Œå¿½ç•¥æŒ‰é”®
 }
 
-/*ÓÉTIM2ÖÐ¶ÏÃ¿10msµ÷ÓÃ*/
+/*ç”±TIM2ä¸­æ–­æ¯10msè°ƒç”¨*/
 void Flashlight_Tick10ms(void)
 {
     if (anim_counter > 0)
@@ -77,7 +77,7 @@ void Flashlight_Tick10ms(void)
         if (anim_counter == 0)
         {
             anim_active = 0;
-            anim_ready = 1;   // Í¨ÖªÖ÷Ñ­»·Ö´ÐÐ·­×ª
+            anim_ready = 1;   // é€šçŸ¥ä¸»å¾ªçŽ¯æ‰§è¡Œç¿»è½¬
         }
     }
 }

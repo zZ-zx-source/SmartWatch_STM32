@@ -4,27 +4,27 @@
 #include "buzzer.h"
 #include <stdio.h>
 
-/* ×´Ì¬Ã¶¾Ù */
+/* çŠ¶æ€æžšä¸¾ */
 typedef enum {
     CD_IDLE = 0,
     CD_RUNNING,
     CD_PAUSED
 } CD_State_t;
 
-/* ÓÃ»§ÉèÖÃµÄ³õÊ¼Ê±¼ä (Ê±,·Ö,Ãë) */
+/* ç”¨æˆ·è®¾ç½®çš„åˆå§‹æ—¶é—´ (æ—¶,åˆ†,ç§’) */
 static uint8_t set_h = 0, set_m = 0, set_s = 0;
-/* µ±Ç°Ê£Óà×ÜÃëÊý */
+/* å½“å‰å‰©ä½™æ€»ç§’æ•° */
 static uint32_t total_seconds = 0;
-/* ÔËÐÐ×´Ì¬ */
+/* è¿è¡ŒçŠ¶æ€ */
 static CD_State_t state = CD_IDLE;
 
-/* Ñ¡ÖÐÇøÓò: 0=Ê±, 1=·Ö, 2=Ãë, 3=Start/Pause, 4=Cancel */
+/* é€‰ä¸­åŒºåŸŸ: 0=æ—¶, 1=åˆ†, 2=ç§’, 3=Start/Pause, 4=Cancel */
 static uint8_t selected_field = 0;
 
-/* Cancel ÉÁË¸¶¯»­¼ÆÊýÆ÷ (µ¥Î»: 10ms) */
+/* Cancel é—ªçƒåŠ¨ç”»è®¡æ•°å™¨ (å•ä½: 10ms) */
 static uint16_t cancel_flash_counter = 0;
 
-/* µ¹¼ÆÊ±ÊÇ·ñÒÑ´¥·¢ÌáÐÑ */
+/* å€’è®¡æ—¶æ˜¯å¦å·²è§¦å‘æé†’ */
 static uint8_t alarm_triggered = 0;
 
 void Countdown_Init(void)
@@ -37,10 +37,10 @@ void Countdown_Init(void)
     alarm_triggered = 0;
 }
 
-/*½øÈë½çÃæÊ±µ÷ÓÃ*/
+/*è¿›å…¥ç•Œé¢æ—¶è°ƒç”¨*/
 void Countdown_Enter(void)
 {
-    selected_field = 0;   // Ä¬ÈÏÑ¡ÖÐÊ±
+    selected_field = 0;   // é»˜è®¤é€‰ä¸­æ—¶
 }
 
 void Countdown_Draw(void)
@@ -53,29 +53,29 @@ void Countdown_Draw(void)
     sprintf(buf, "%02d:%02d:%02d", h, m, s);
     OLED_ShowString(0, 16, buf, OLED_16X32);
 
-    // ×óÏÂ½Ç°´Å¥
+    // å·¦ä¸‹è§’æŒ‰é’®
     if (state == CD_RUNNING)
         OLED_ShowString(0, 48, "Pause", OLED_8X16);
     else
         OLED_ShowString(0, 48, "Start", OLED_8X16);
 
-    // ÓÒÏÂ½Ç°´Å¥
+    // å³ä¸‹è§’æŒ‰é’®
     OLED_ShowString(80, 48, "Cancel", OLED_8X16);
 
-    // ¸ßÁÁÑ¡ÖÐÇøÓò
+    // é«˜äº®é€‰ä¸­åŒºåŸŸ
     switch (selected_field)
     {
-        case 0: OLED_ReverseArea(0, 16, 32, 32); break;   // Ê±
-        case 1: OLED_ReverseArea(48, 16, 32, 32); break;   // ·Ö
-        case 2: OLED_ReverseArea(96, 16, 32, 32); break;   // Ãë
+        case 0: OLED_ReverseArea(0, 16, 32, 32); break;   // æ—¶
+        case 1: OLED_ReverseArea(48, 16, 32, 32); break;  // åˆ†
+        case 2: OLED_ReverseArea(96, 16, 32, 32); break;  // ç§’
         case 3: OLED_ReverseArea(0, 48, 48, 16); break;   // Start/Pause
         case 4: // Cancel
             if (cancel_flash_counter > 0)
             {
-                // ÉÁË¸£ºÃ¿ 200ms ÇÐ»»·´É«
+                // é—ªçƒï¼šæ¯ 200ms åˆ‡æ¢åè‰²
                 if ((cancel_flash_counter / 20) % 2 == 0)
                     OLED_ReverseArea(80, 48, 48, 16);
-                // else ²»·´É«£¬ÏÔÊ¾Õý³£ÎÄ±¾
+                // else ä¸åè‰²ï¼Œæ˜¾ç¤ºæ­£å¸¸æ–‡æœ¬
             }
             else
             {
@@ -89,7 +89,7 @@ page_state_t Countdown_HandleKey(uint8_t key)
 {
     if (key == 1)
     {
-        return PAGE_TIME;   // ·µ»ØÁÐ±í£¬²»Í£Ö¹µ¹¼ÆÊ±
+        return PAGE_TIME;   // è¿”å›žåˆ—è¡¨ï¼Œä¸åœæ­¢å€’è®¡æ—¶
     }
     else if (key == 2)
     {
@@ -100,21 +100,21 @@ page_state_t Countdown_HandleKey(uint8_t key)
     {
         switch (selected_field)
         {
-            case 0: // Ê±
+            case 0: // æ—¶
                 if (state == CD_IDLE)
                 {
                     set_h = (set_h + 1) % 24;
                     total_seconds = set_h * 3600 + set_m * 60 + set_s;
                 }
                 break;
-            case 1: // ·Ö
+            case 1: // åˆ†
                 if (state == CD_IDLE)
                 {
                     set_m = (set_m + 1) % 60;
                     total_seconds = set_h * 3600 + set_m * 60 + set_s;
                 }
                 break;
-            case 2: // Ãë
+            case 2: // ç§’
                 if (state == CD_IDLE)
                 {
                     set_s = (set_s + 1) % 60;
@@ -126,13 +126,13 @@ page_state_t Countdown_HandleKey(uint8_t key)
                 {
                     if (state == CD_IDLE)
                     {
-                        // ÔØÈëÉè¶¨Ê±¼ä£¨¿ÉÄÜµ¹¼ÆÊ±½áÊø total_seconds Îª 0£©
+                        // è½½å…¥è®¾å®šæ—¶é—´ï¼ˆå¯èƒ½å€’è®¡æ—¶ç»“æŸ total_seconds ä¸º 0ï¼‰
                         total_seconds = set_h * 3600 + set_m * 60 + set_s;
-                        if (total_seconds == 0) break;   // ±ÜÃâ 0 Ãë¿ªÊ¼
+                        if (total_seconds == 0) break;   // é¿å… 0 ç§’å¼€å§‹
                     }
                     state = CD_RUNNING;
                     alarm_triggered = 0;
-                    Buzzer_StopAlarm();   // ¹Ø±Õ¿ÉÄÜÏì×ÅµÄ·äÃùÆ÷
+                    Buzzer_StopAlarm();   // å…³é—­å¯èƒ½å“ç€çš„èœ‚é¸£å™¨
                 }
                 else if (state == CD_RUNNING)
                 {
@@ -140,14 +140,14 @@ page_state_t Countdown_HandleKey(uint8_t key)
                 }
                 break;
             case 4: // Cancel
-                // ÈÎºÎÊ±ºò°´ Cancel ¶¼¿ÉÒÔÍ£Ö¹·äÃùÆ÷²¢¸´Î»
+                // ä»»ä½•æ—¶å€™æŒ‰ Cancel éƒ½å¯ä»¥åœæ­¢èœ‚é¸£å™¨å¹¶å¤ä½
                 if (state == CD_RUNNING || state == CD_PAUSED || (state == CD_IDLE && alarm_triggered))
                 {
                     Buzzer_StopAlarm();
                     alarm_triggered = 0;
-                    total_seconds = set_h * 3600 + set_m * 60 + set_s; // ¸´Î»µ½³õÊ¼Éè¶¨
+                    total_seconds = set_h * 3600 + set_m * 60 + set_s; // å¤ä½åˆ°åˆå§‹è®¾å®š
                     state = CD_IDLE;
-                    cancel_flash_counter = 100;   // 1 ÃëÉÁË¸¶¯»­ (100 * 10ms)
+                    cancel_flash_counter = 100;   // 1 ç§’é—ªçƒåŠ¨ç”» (100 * 10ms)
                 }
                 break;
         }
@@ -156,7 +156,7 @@ page_state_t Countdown_HandleKey(uint8_t key)
     return PAGE_COUNTDOWN;
 }
 
-/* ÓÉÖ÷Ñ­»·Ã¿Ãëµ÷ÓÃ */
+/* ç”±ä¸»å¾ªçŽ¯æ¯ç§’è°ƒç”¨ */
 void Countdown_SecondTick(void)
 {
     if (state == CD_RUNNING)
@@ -168,13 +168,13 @@ void Countdown_SecondTick(void)
             {
                 state = CD_IDLE;
                 alarm_triggered = 1;
-                Buzzer_StartAlarm();   // ·Ç×èÈû·äÃùÆ÷
+                Buzzer_StartAlarm();   // éžé˜»å¡žèœ‚é¸£å™¨
             }
         }
     }
 }
 
-/*ÓÉTIM2 10msÖÐ¶Ïµ÷ÓÃ£¨ÓÃÓÚCancel¶¯»­£©*/
+/*ç”±TIM2 10msä¸­æ–­è°ƒç”¨ï¼ˆç”¨äºŽCancelåŠ¨ç”»ï¼‰*/
 void Countdown_Tick10ms(void)
 {
     if (cancel_flash_counter > 0)

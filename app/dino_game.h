@@ -1,10 +1,10 @@
 #ifndef _DINO_GAME_H
 #define _DINO_GAME_H
-#include "menu.h"          // ĞèÒª page_state_t
+#include "menu.h"          // éœ€è¦ page_state_t
 
-/* ---------------- ³£Á¿¶¨Òå ---------------- */
+/* ---------------- å¸¸é‡å®šä¹‰ ---------------- */
 #define DINO_X          0
-#define DINO_Y_GROUND   44      // Ğ¡¿ÖÁúÕı³£Î»ÖÃY
+#define DINO_Y_GROUND   44      // å°æé¾™æ­£å¸¸ä½ç½®Y
 #define DINO_WIDTH      16
 #define DINO_HEIGHT     18
 
@@ -12,12 +12,12 @@
 #define BARRIER_WIDTH   16
 #define BARRIER_HEIGHT  18
 
-#define GROUND_Y        56      // µØÃæÌõ´øÆğÊ¼Y£¨¼ÙÉèµØÃæÍ¼¸ß8ÏñËØ£¬ÔòY=56£©
+#define GROUND_Y        56      // åœ°é¢æ¡å¸¦èµ·å§‹Yï¼ˆå‡è®¾åœ°é¢å›¾é«˜8åƒç´ ï¼Œåˆ™Y=56ï¼‰
 #define GROUND_HEIGHT   8
 
-#define JUMP_TOTAL_TICKS  80   // ÌøÔ¾×Ü³ÖĞøÊ±¼ä£¬µ¥Î»£º10ms£¨80 = 800ms£©
+#define JUMP_TOTAL_TICKS  80   // è·³è·ƒæ€»æŒç»­æ—¶é—´ï¼Œå•ä½ï¼š10msï¼ˆ80 = 800msï¼‰
 
-/******º¯ÊıÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜*****/
 void DinoGame_Init(void);
 void DinoGame_Enter(void);
 void DinoGame_Draw(void);

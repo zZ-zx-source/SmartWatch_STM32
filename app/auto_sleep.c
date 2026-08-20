@@ -1,9 +1,9 @@
 #include "stm32f10x.h"                  // Device header
 #include "auto_sleep.h"
-#include "OLED.h"      // Ê¹ÓÃ OLED_WriteCommand
+#include "OLED.h"      // ä½¿ç”¨ OLED_WriteCommand
 
-static uint8_t sleep_counter = 0;   // ÎŞ²Ù×÷ÃëÊı
-static uint8_t is_sleeping = 0;     // Ï¢ÆÁ×´Ì¬
+static uint8_t sleep_counter = 0;   // æ— æ“ä½œè®¡æ•°
+static uint8_t is_sleeping = 0;     // æ¯å±çŠ¶æ€
 
 void AutoSleep_Init(void)
 {
@@ -16,10 +16,10 @@ void AutoSleep_Reset(void)
     sleep_counter = 0;
 }
 
-/*Ã¿Ãëµ÷ÓÃÒ»´Î£¨ÓÉÖ÷Ñ­»· second_tick_flag ´¦Àí£©*/
+/*æ¯ç§’è°ƒç”¨ä¸€æ¬¡ï¼ˆç”±ä¸»å¾ªç¯ second_tick_flag å¤„ç†ï¼‰*/
 void AutoSleep_Tick(void)
 {
-    if (is_sleeping) return;   // ÒÑ¾­Ï¢ÆÁ£¬²»ÔÙ¼ÆÊ±
+    if (is_sleeping) return;   // å·²ç»æ¯å±ï¼Œä¸å†è®¡æ—¶
 
     sleep_counter++;
     if (sleep_counter >= SLEEP_TIMEOUT_SEC)
@@ -37,13 +37,13 @@ uint8_t AutoSleep_IsSleeping(void)
 void AutoSleep_EnterSleep(void)
 {
     is_sleeping = 1;
-    OLED_WriteCommand(0xAE);   // SSD1306 ¹Ø±ÕÏÔÊ¾
+    OLED_WriteCommand(0xAE);   // SSD1306 å…³é—­æ˜¾ç¤º
 }
 
 void AutoSleep_Wakeup(void)
 {
     is_sleeping = 0;
     sleep_counter = 0;
-    OLED_WriteCommand(0xAF);   // SSD1306 ¿ªÆôÏÔÊ¾
-    // »½ĞÑºóĞèÒªË¢ĞÂÒ»´Î»­Ãæ£¬Ö÷Ñ­»·»áµ÷ÓÃ Menu_Update
+    OLED_WriteCommand(0xAF);   // SSD1306 å¼€å¯æ˜¾ç¤º
+    // å”¤é†’åéœ€è¦åˆ·æ–°ä¸€æ¬¡ç”»é¢ï¼Œä¸»å¾ªç¯ä¼šè°ƒç”¨ Menu_Update
 }

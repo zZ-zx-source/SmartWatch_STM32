@@ -5,7 +5,7 @@
 #include "alarm.h"
 #include "countdown.h"
 
-/* Ê±¼äÑ¡ÏîÁĞ±íµÄÏîÄ¿ */
+/* æ—¶é—´é€‰é¡¹åˆ—è¡¨çš„é¡¹ç›® */
 static const char *time_items[] = {
     "Time Setting",
     "Alarm",
@@ -14,7 +14,7 @@ static const char *time_items[] = {
 
 #define TIME_ITEM_COUNT  3
 
-static uint8_t selected_item = 0;   // µ±Ç°¸ßÁÁÏîË÷Òı
+static uint8_t selected_item = 0;   // å½“å‰é«˜äº®é¡¹ç´¢å¼•
 
 void TimeApp_Init(void)
 {
@@ -24,8 +24,8 @@ void TimeApp_Init(void)
 }
 
 /**
- * »æÖÆÖ¸¶¨Ò³Ãæ£¨ÓÉ Menu_Update µ÷ÓÃ£©
- * page  µ±Ç°Ò³Ãæ×´Ì¬
+ * ç»˜åˆ¶æŒ‡å®šé¡µé¢ï¼ˆç”± Menu_Update è°ƒç”¨ï¼‰
+ * page  å½“å‰é¡µé¢çŠ¶æ€
  */
 void TimeApp_Draw(page_state_t page)
 {	
@@ -33,12 +33,12 @@ void TimeApp_Draw(page_state_t page)
     {
         case PAGE_TIME:
         {
-            // »æÖÆÈı¸öÑ¡Ïî
+            // ç»˜åˆ¶ä¸‰ä¸ªé€‰é¡¹
             for (int i = 0; i < TIME_ITEM_COUNT; i++)
             {
                 OLED_ShowString(0, 16 + i * 16, (char *)time_items[i], OLED_8X16);
             }
-            // ¸ßÁÁµ±Ç°Ñ¡ÖĞĞĞ
+            // é«˜äº®å½“å‰é€‰ä¸­è¡Œ
             OLED_ReverseArea(0, 16 + selected_item * 16, 128, 16);
             break;
         }
@@ -51,21 +51,21 @@ void TimeApp_Draw(page_state_t page)
 }
 
 /**
- * ´¦ÀíÊ±¼äÏà¹ØÒ³ÃæµÄ°´¼ü
- * key  °´¼üÖµ (1/2/3)
- * currentPage  µ±Ç°Ò³Ãæ
+ * å¤„ç†æ—¶é—´ç›¸å…³é¡µé¢çš„æŒ‰é”®
+ * key  æŒ‰é”®å€¼ (1/2/3)
+ * currentPage  å½“å‰é¡µé¢
  */
 page_state_t TimeApp_HandleKey(uint8_t key, page_state_t currentPage)
 {
-    // ---------- Ñ¡ÏîÁĞ±í½çÃæ ----------
+    // ---------- é€‰é¡¹åˆ—è¡¨ç•Œé¢ ----------
     if (currentPage == PAGE_TIME)
     {
-        if (key == 2)   // ÏòÏÂÑ¡Ôñ
+        if (key == 2)   // å‘ä¸‹é€‰æ‹©
         {
             selected_item = (selected_item + 1) % TIME_ITEM_COUNT;
-            return PAGE_TIME;   // ÈÔÔÚÁĞ±í£¬µ«Ñ¡Ïî±ä»¯£¬ĞèÖØ»æ
+            return PAGE_TIME;   // ä»åœ¨åˆ—è¡¨ï¼Œä½†é€‰é¡¹å˜åŒ–ï¼Œéœ€é‡ç»˜
         }
-        else if (key == 3)   // È·ÈÏ½øÈë
+        else if (key == 3)   // ç¡®è®¤è¿›å…¥
         {
             switch (selected_item)
             {
@@ -75,12 +75,12 @@ page_state_t TimeApp_HandleKey(uint8_t key, page_state_t currentPage)
                 default: return PAGE_TIME;
             }
         }
-        else if (key == 1)   // ·µ»Ø²Ëµ¥£¨ÓÉÍâ²¿ Menu_Update Ò²¿É´¦Àí£¬µ«ÕâÀïÍ³Ò»·µ»Ø£©
+        else if (key == 1)   // è¿”å›èœå•ï¼ˆç”±å¤–éƒ¨ Menu_Update ä¹Ÿå¯å¤„ç†ï¼Œä½†è¿™é‡Œç»Ÿä¸€è¿”å›ï¼‰
         {
             return PAGE_MENU;
         }
     }
-	// ---------- ×Ó½çÃæ (Time Setting / Alarm / Countdown) ----------
+	// ---------- å­ç•Œé¢ (Time Setting / Alarm / Countdown) ----------
 	else if (currentPage == PAGE_TIME_SETTING)
 	{
 		return TimeSetting_HandleKey(key);
@@ -94,5 +94,5 @@ page_state_t TimeApp_HandleKey(uint8_t key, page_state_t currentPage)
 		return Countdown_HandleKey(key);
 	}
 	
-    return currentPage;   // Î´´¦Àí£¬Ò³Ãæ²»±ä
+    return currentPage;   // æœªå¤„ç†ï¼Œé¡µé¢ä¸å˜
 }

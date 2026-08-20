@@ -1,9 +1,9 @@
 #ifndef _EMOJI_H
 #define _EMOJI_H
 
-#define EMOJI_FRAME_INTERVAL_MS  80    //Ã¿80msÖĞ¶Ï¼ì²âÒ»´Î
+#define EMOJI_FRAME_INTERVAL_MS  80    //æ¯80msä¸­æ–­æ£€æµ‹ä¸€æ¬¡
 
-/******º¯ÊıÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜*****/
 void Emoji_Init(void);
 void Detail_Emoji(void);
 void Emoji_UpdateFrame(void);

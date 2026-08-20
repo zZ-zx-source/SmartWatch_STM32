@@ -1,8 +1,8 @@
 #ifndef _COUNTDOWN_H
 #define _COUNTDOWN_H
-#include "menu.h"          // ĞèÒª page_state_t
+#include "menu.h"          // éœ€è¦ page_state_t
 
-/******º¯ÊıÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜*****/
 void Countdown_Init(void);
 void Countdown_Enter(void);
 void Countdown_Draw(void);

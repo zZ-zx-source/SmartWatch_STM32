@@ -1,8 +1,8 @@
 #ifndef _TIME_SETTING_H
 #define _TIME_SETTING_H
-#include "menu.h"          // ĞèÒª page_state_t
+#include "menu.h"          // éœ€è¦ page_state_t
 
-/******º¯ÊıÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜*****/
 void TimeSetting_Enter(void);
 void TimeSetting_Draw(void);
 page_state_t TimeSetting_HandleKey(uint8_t key);

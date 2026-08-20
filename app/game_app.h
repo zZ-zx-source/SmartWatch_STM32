@@ -1,8 +1,8 @@
 #ifndef _GAME_APP_H
 #define _GAME_APP_H
-#include "menu.h"          // ĞèÒª page_state_t
+#include "menu.h"          // éœ€è¦ page_state_t
 
-/******º¯ÊıÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜*****/
 void GameApp_Init(void);
 void GameApp_Draw(page_state_t page);
 page_state_t GameApp_HandleKey(uint8_t key, page_state_t currentPage);

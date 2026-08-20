@@ -1,7 +1,7 @@
 #ifndef _BUZZER_H
 #define _BUZZER_H
 
-/******º¯ÊýÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜Ž*****/
 void Buzzer_Init(void);
 void Buzzer_StartAlarm(void);
 void Buzzer_StopAlarm(void);

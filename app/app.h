@@ -1,7 +1,7 @@
 #ifndef _APP_H
 #define _APP_H
 
-/******º¯ÊýÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜Ž*****/
 void App_Init(void);
 void App_Process(void);
 

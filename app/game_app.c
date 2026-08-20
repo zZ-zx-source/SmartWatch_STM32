@@ -3,25 +3,25 @@
 #include "OLED.h"
 #include "dino_game.h"
 
-/* ÓÎÏ·ÁĞ±íÏî£¨Ä¿Ç°½öÒ»¸ö£¬ÒÔºóÀ©Õ¹£© */
+/* æ¸¸æˆåˆ—è¡¨é¡¹ï¼ˆç›®å‰ä»…ä¸€ä¸ªï¼Œä»¥åæ‰©å±•ï¼‰ */
 static const char *game_items[] = {
     "Chrome Dino",
-    // "Snake",  // ½«À´Ìí¼ÓÓÎÏ·Ãû¼´¿É
+    // "Snake",  // å°†æ¥æ·»åŠ æ¸¸æˆåå³å¯
 };
 
-#define GAME_ITEM_COUNT  1   // µ±Ç°Ö»ÓĞ 1 ¸öÓÎÏ·
+#define GAME_ITEM_COUNT  1   // å½“å‰åªæœ‰ 1 ä¸ªæ¸¸æˆ
 
-static uint8_t selected_game = 0;   // µ±Ç°¸ßÁÁÏîË÷Òı
+static uint8_t selected_game = 0;   // å½“å‰é«˜äº®é¡¹ç´¢å¼•
 
 void GameApp_Init(void)
 {
     selected_game = 0;
 	DinoGame_Init();
-    DinoGame_SetActive(0);   // ³õÊ¼Î´¼¤»î
+    DinoGame_SetActive(0);  // åˆå§‹æœªæ¿€æ´»
 }
 
 /**
- * »æÖÆÓÎÏ·Ïà¹ØÒ³Ãæ
+ * ç»˜åˆ¶æ¸¸æˆç›¸å…³é¡µé¢
  */
 void GameApp_Draw(page_state_t page)
 {
@@ -29,12 +29,12 @@ void GameApp_Draw(page_state_t page)
     {
         case PAGE_GAME:
         {
-            // »æÖÆÓÎÏ·Ñ¡Ïî
+            // ç»˜åˆ¶æ¸¸æˆé€‰é¡¹
             for (int i = 0; i < GAME_ITEM_COUNT; i++)
             {
                 OLED_ShowString(0, 16 + i * 16, (char *)game_items[i], OLED_8X16);
             }
-            // ¸ßÁÁµ±Ç°Ñ¡ÖĞĞĞ
+            // é«˜äº®å½“å‰é€‰ä¸­è¡Œ
             OLED_ReverseArea(0, 16 + selected_game * 16, 128, 16);
             break;
         }
@@ -44,51 +44,51 @@ void GameApp_Draw(page_state_t page)
     }
 }
 
-/*´¦ÀíÓÎÏ·Ä£¿éµÄ°´¼ü*/
+/*å¤„ç†æ¸¸æˆæ¨¡å—çš„æŒ‰é”®*/
 page_state_t GameApp_HandleKey(uint8_t key, page_state_t currentPage)
 {
-    // ---------- ÓÎÏ·ÁĞ±í½çÃæ ----------
+    // ---------- æ¸¸æˆåˆ—è¡¨ç•Œé¢ ----------
     if (currentPage == PAGE_GAME)
     {
-        if (key == 2)   // ÏòÏÂÑ¡Ôñ£¨µ¥ÏîÄ¿Ñ­»·£¬Ğ§¹û¾ÍÊÇÍ£ÔÚµ±Ç°Ïî£©
+        if (key == 2)   // å‘ä¸‹é€‰æ‹©ï¼ˆå•é¡¹ç›®å¾ªç¯ï¼Œæ•ˆæœå°±æ˜¯åœåœ¨å½“å‰é¡¹ï¼‰
         {
             selected_game = (selected_game + 1) % GAME_ITEM_COUNT;
-            return PAGE_GAME;   // ÈÔÔÚÁĞ±í£¬ĞèÒªÖØ»æ
+            return PAGE_GAME;   // ä»åœ¨åˆ—è¡¨ï¼Œéœ€è¦é‡ç»˜
         }
-        else if (key == 3)   // È·ÈÏ½øÈë
+        else if (key == 3)   // ç¡®è®¤è¿›å…¥
         {
             switch (selected_game)
             {
                 case 0: 
-					DinoGame_Enter();   // ³õÊ¼»¯²¢¼¤»îÓÎÏ·
-					return PAGE_DINO;   // È»ºóÌø×ªÒ³Ãæ
-                // ÒÔºó case 1: return PAGE_SNAKE;
+					DinoGame_Enter();   // åˆå§‹åŒ–å¹¶æ¿€æ´»æ¸¸æˆ
+					return PAGE_DINO;   // ç„¶åè·³è½¬é¡µé¢
+                // ä»¥å case 1: return PAGE_SNAKE;
                 default: return PAGE_GAME;
             }
         }
-        else if (key == 1)   // ·µ»ØÖ÷²Ëµ¥
+        else if (key == 1)   // è¿”å›ä¸»èœå•
         {
             return PAGE_MENU;
         }
     }
-    // ---------- ¾ßÌåÓÎÏ·½çÃæ£¨Dino µÈ£© ----------
+    // ---------- å…·ä½“æ¸¸æˆç•Œé¢ï¼ˆDino ç­‰ï¼‰ ----------
     else if (currentPage == PAGE_DINO)
     {
-		// Èç¹ûÓÎÏ·ÇëÇóÍË³ö£¬Á¢¼´·µ»ØÁĞ±í
+		// å¦‚æœæ¸¸æˆè¯·æ±‚é€€å‡ºï¼Œç«‹å³è¿”å›åˆ—è¡¨
 		if (DinoGame_IsExitRequested())
 		{
-			DinoGame_SetActive(0);   // Í£Ö¹ÓÎÏ·
+			DinoGame_SetActive(0);   // åœæ­¢æ¸¸æˆ
 			return PAGE_GAME;
 		}
 		
         page_state_t newPage = DinoGame_HandleKey(key);
 		if (newPage != PAGE_DINO)
 		{
-			// Àë¿ªÓÎÏ·Ê±È·±£Í£Ö¹ÓÎÏ·
+			// ç¦»å¼€æ¸¸æˆæ—¶ç¡®ä¿åœæ­¢æ¸¸æˆ
 			DinoGame_SetActive(0);
 		}
 		return newPage;
     }
 
-    return currentPage;   // Î´´¦Àí£¬Ò³Ãæ²»±ä
+    return currentPage;   // æœªå¤„ç†ï¼Œé¡µé¢ä¸å˜
 }

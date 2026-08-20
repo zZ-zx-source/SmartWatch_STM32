@@ -2,9 +2,9 @@
 #define _BATTERY_H
 #include <stdint.h>
 
-#define BATTERY_SAMPLE_INTERVAL_MS  100   //Ã¿100msÖĞ¶Ï¼ì²âÒ»´Î
+#define BATTERY_SAMPLE_INTERVAL_MS  100   //æ¯100msä¸­æ–­æ£€æµ‹ä¸€æ¬¡
 
-/******º¯ÊıÉùÃ÷*****/
+/******å‡½æ•°å£°æ˜*****/
 void Battery_Init(void);
 void Battery_Update(void);
 uint8_t Battery_GetPercent(void);
