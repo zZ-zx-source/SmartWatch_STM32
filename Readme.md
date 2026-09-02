@@ -62,7 +62,7 @@
     <tr>
       <td align="center"><img src="./images/hardware_photo1.jpg" width="200"><br>主界面</td>
       <td align="center"><img src="./images/hardware_photo2.jpg" width="200"><br>菜单界面</td>
-      <td align="center"><img src="./images/hardware_photo3.jpg" alt="pmxNWsx.jpg" width="200"><br>时间功能界面</td>
+      <td align="center"><img src="./images/hardware_photo3.jpg" width="200"><br>时间功能界面</td>
     </tr>
     <tr>
       <td align="center"><img src="./images/hardware_photo4.jpg" width="200"><br>手电筒界面</td>
@@ -109,7 +109,7 @@
 ### 实物连接图
 <div align="center">
 <p align="center">
-    <img src="./images/hardware_photo.jpg" alt="pmxNeGd.jpg" width="400"><br>
+    <img src="./images/hardware_photo.jpg" width="400"><br>
     智能手表实物整体图
   </p>
   <br>
