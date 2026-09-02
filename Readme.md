@@ -59,14 +59,15 @@
   <br>
   <table>
     <tr>
-      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxN3dS.jpg" width="200"><br>主界面</td>
-      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxNtRs.jpg" width="200"><br>菜单界面</td>
-      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxNWsx.jpg" alt="pmxNWsx.jpg" width="200"><br>时间功能界面</td>
+    <tr>
+      <td align="center"><img src="./images/hardware_photo1.jpg" width="200"><br>主界面</td>
+      <td align="center"><img src="./images/hardware_photo2.jpg" width="200"><br>菜单界面</td>
+      <td align="center"><img src="./images/hardware_photo3.jpg" alt="pmxNWsx.jpg" width="200"><br>时间功能界面</td>
     </tr>
     <tr>
-      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxN5dO.jpg" width="200"><br>手电筒界面</td>
-      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxN4eK.jpg" width="200"><br>游戏功能界面</td>
-      <td align="center"><img src="https://s41.ax1x.com/2026/08/20/pmxN7JH.jpg" width="200"><br>表情包界面</td>
+      <td align="center"><img src="./images/hardware_photo4.jpg" width="200"><br>手电筒界面</td>
+      <td align="center"><img src="./images/hardware_photo6.jpg" width="200"><br>游戏功能界面</td>
+      <td align="center"><img src="./images/hardware_photo7.jpg" width="200"><br>表情包界面</td>
     </tr>
   </table>
 </div>
@@ -108,7 +109,7 @@
 ### 实物连接图
 <div align="center">
 <p align="center">
-    <img src="https://s41.ax1x.com/2026/08/20/pmxNeGd.jpg" alt="pmxNeGd.jpg" width="400"><br>
+    <img src="./images/hardware_photo.jpg" alt="pmxNeGd.jpg" width="400"><br>
     智能手表实物整体图
   </p>
   <br>
@@ -244,34 +245,115 @@ void Menu_Tick(void)
 
 ### 2-按键处理
 
-**设计思路**：摒弃阻塞式扫描，采用**非阻塞状态机 + 定时器中断**。每个按键独立维护4个状态：空闲、消抖、等待释放、释放消抖。同时记录按住时间，用于长按检测。
+**功能起点与数据流**  
 
-**长按识别**：当Key3持续按下超过2秒（`hold_count >= 200`），置 `long_press` 标志，并通过 `Key_ReadLongPress()` 供电源模块使用。
+**初始化**：  
+`App_Init()` → `Key_Init()`（配置 GPIO 为上拉输入，初始化按键状态结构体）  
+**采集**：  
+`TIM2中断` → `Timer2_Tasks()` → `Key_Tick()` → `Key_Process()`（每 10ms 扫描）  
+**输出**：  
+`主循环` → `App_Process()` → `Key_Read()`（短按） / `Key_ReadLongPress()`（长按，由 `Power_HandleLongPress` 调用）  
 
-**关键代码**（按键状态机片段）：
-``` c
-case 2:   // 等待释放
-	if (current_level == 0)   // 仍按下
-	{
-		if (!k->long_press_done)   // 如果长按还未被处理
-		{
-			k->hold_count++;
-			if (k->hold_count >= 200)   // 达到2秒
-			{
-				k->long_press = 1;       // 标记长按
-				k->long_press_done = 1;  // 设置为已处理，防止重复设置
-				k->hold_count = 0;       // 清零，不再增加
-			}
-		}
-		// 如果已处理，则不再计数，等待释放
-	}
-	else   // 释放
-	{
-		k->state = 3;   // 进入释放消抖
-		k->count = 0;
-	}
-	break;
-```
+**调用模块**  
+
+**TIM2**:提供10ms时基，用于周期性扫描按键。  
+**GPIO**:读取按键电平。  
+**key模块本身**：封装状态机，消抖，长短按识别。  
+**power模块**：通过Key_ReadLongPross()获取长按事件，执行开关机。  
+
+**核心逻辑**  
+
+- **非阻塞式扫描**：使用TIM2 10ms中断周期采样按键电平，避免delay()造成CPU空转，阻塞主循环。  
+  ``` c
+  // TIM2 中断服务函数（简化）
+  void TIM2_IRQHandler(void) {
+      if (更新中断标志) {
+          Key_Tick();   // 10ms 扫描一次按键
+      }
+  }
+
+  // 按键扫描：读取三个按键电平，送入状态机
+  void Key_Tick(void) {
+      for (i = 0; i < 3; i++) {
+          level = GPIO_ReadInputDataBit(...);
+          Key_Process(&keys[i], level);
+      }
+  }
+  ```
+
+- **状态机消抖**：每个按键独立维护4个状态：空闲、按下消抖、等待释放、释放消抖。通过状态转化消除机械抖动。  
+  ``` c
+  // 状态：0空闲 → 1按下消抖 → 2等待释放 → 3释放消抖
+
+  switch (k->state) {
+      case 0:  // 空闲，检测到低电平进入消抖
+          if (level == 0) { k->state = 1; k->count = 0; }
+          break;
+
+      case 1:  // 消抖，持续 20ms 后确认按下
+          if (++k->count >= 2) {
+              k->state = (电平仍为0) ? 2 : 0;  // 确认按下或判定为抖动
+              k->count = 0;
+          }
+          break;
+
+      case 2:  // 等待释放，同时累计长按时间
+          if (level == 0) {                    // 仍然按住
+              if (++k->hold_count >= 200) {   // 2秒
+                  k->long_press = 1;          // 触发长按
+                  k->long_press_done = 1;     // 避免重复设置
+              }
+          } else {
+              k->state = 3;                   // 松开，进入释放消抖
+              k->count = 0;
+          }
+          break;
+
+      case 3:  // 释放消抖，确认后产生短按或保留长按标志
+          if (++k->count >= 2) {
+              if (电平为1) {
+                  if (k->long_press) {
+                      // 长按：不产生短按，由主循环查询
+                  } else {
+                      key_ready = 1;          // 短按事件
+                      key_value = k->value;
+                  }
+              }
+              k->state = 0;                  // 回到空闲
+              k->count = 0;
+              k->hold_count = 0;
+              k->long_press_done = 0;
+          }
+          break;
+  }
+  ```
+
+- **短按/长按分离**：短按通过`Key_Read()`返回，长按通过`Key_ReadLongPress()`返回，互不打扰。
+  ``` c
+  /* 查询是否有短按事件*/
+  uint8_t Key_Read(void)
+  {
+      uint8_t ret = 0;
+      if (key_ready) {
+          ret = key_value;
+          key_ready = 0;
+          key_value = 0;
+      }
+      return ret;
+  }
+  /* 查询是否有长按事件（仅Key3） */
+  uint8_t Key_ReadLongPress(void)
+  {
+      if (keys[2].long_press)   // keys[2] 对应 Key3
+      {
+          keys[2].long_press = 0;   // 清除标志
+          return 3;   // 返回按键编号
+      }
+      return 0;    // 无长按事件
+  }
+  ```
+
+- **选择 TIM 而非 EXTI**:固定节拍扫描可自然滤除机械抖动，便于实现状态机和长按；`EXTI` 响应过快，需要额外消抖且中断频繁。
 
 ---
 
@@ -373,7 +455,30 @@ if (dino_jump_flag)
 
 ### 11-电量检测与显示
 
-ADC 读取 PA0 电压（电位器模拟），滑动平均滤波平滑数据。根据百分比选择电池图标显示格数（0~3 格），图标只存储满格，通过 `OLED_ClearArea()` 动态擦除多余格，节省 Flash。
+**功能起点**:
+`App_Init()` → `AD_Init()` → `Battery_Init()`  
+
+**数据采集**:
+`TIM2 中断`  →  `Timer2_Tasks()`  →  `Battery_Update()`  →  `AD_GetValue()`  →  `均值滤波`  →  `current_percent`和`last_bars`  
+
+**显示输出**：
+`主循环` → `App_Process()` → `Menu_Update()` → `Menu_StatusBar()` → `Battery_GetPercent()` 和 `OLED_ShowBattery()`
+
+**调用模块**
+调用一个ADC驱动模块，将模拟电压转换成数字值，再经过均值滤波换算成百分比和电量三个图标显示。
+
+**核心逻辑**  
+- **TIM2 定时采样**：10ms 中断，软件分频到 100ms 调用 `Battery_Update()`，实现非阻塞周期采样。  
+  
+- **滑动均值滤波**：取最近 10 次 ADC 值的平均值，使显示平滑。  
+
+- **百分比映射**：将 12 位 ADC 平均值（0~4095）线性转换为 0~100%。
+
+- **电池格数计算**：根据百分比划分 0~3 格。   
+
+- **防抖**:若百分比和格数未变化，`Battery_Update()` 直接return返回到调用它的 `Timer2_Tasks()`，避免 ADC 噪声导致显示频繁跳动。
+
+- **显示驱动**:`OLED_ShowBattery()` 使用单张满格电池图标 + `OLED_ClearArea()` 擦除多余格，节省 Flash 存储（不存储 0~2 格图标）。
 
 ---
 
