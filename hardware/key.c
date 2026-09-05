@@ -91,7 +91,7 @@ static void Key_Process(Key_Control *k, uint8_t current_level)
 					// 确认释放
                     if (k->long_press)
                     {
-						// 长按，不生成短按键值，但设置长按标志
+						// 长按，跳过else分支，不生成短按键值，但设置长按标志
 						// 可以在外部用函数查询
 						// 这里不清除 k->long_press，由主循环处理
 					}
