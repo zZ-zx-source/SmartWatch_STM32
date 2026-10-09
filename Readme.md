@@ -78,6 +78,14 @@
 
 ## 硬件连接
 
+<div align="center">
+<p align="center">
+    <img src="./images/stm32SmartWatch.jpg" width="400"><br>
+    智能手表原理图
+  </p>
+  <br>
+</div>
+
 ### 硬件清单
 
 | 模块 | 型号/规格 | 用途 |
