@@ -543,6 +543,7 @@ else
 <div align="center">
 <p align="center">
     <img src="./images/error.jpg" width="150"><br>
+    类似失败案例
   </p>
   <br>
 </div>
