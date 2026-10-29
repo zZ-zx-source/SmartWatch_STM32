@@ -538,3 +538,11 @@ else
 本项目为个人学习作品，参考了 STM32 标准库例程及社区开源资料。感谢江协科技 OLED 驱动和 MPU6050 驱动参考
 
 ---
+彩蛋
+（焊接炸板警告！）建议先焊主控再焊其他，否则硬件问题排查起来很麻烦
+<div align="center">
+<p align="center">
+    <img src="./images/error.jpg" width="150"><br>
+  </p>
+  <br>
+</div>
