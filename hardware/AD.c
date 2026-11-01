@@ -22,7 +22,7 @@ void AD_Init(void)
 	GPIO_Init(GPIOA, &GPIO_InitStructure);					//将PA0引脚初始化为模拟输入
 	
 	/*规则组通道配置*/
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_55Cycles5);		//规则组序列1的位置，配置为通道0
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_239Cycles5);		//规则组序列1的位置，配置为通道0
 	
 	/*ADC初始化*/
 	ADC_InitTypeDef ADC_InitStructure;						//定义结构体变量

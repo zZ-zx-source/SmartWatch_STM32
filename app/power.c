@@ -8,56 +8,64 @@
 #include "led.h"
 #include "buzzer.h"
 
-extern volatile uint8_t second_tick_flag;   // 来自 timer.c
+//extern volatile uint8_t second_tick_flag;   // 来自 timer.c
+
+/**
+ * 硬件电源自锁初始化
+ * 该函数必须在 main 函数最开头调用，锁住系统电源，防止松手断电
+ */
+void Power_Init(void)
+{
+    /* ========== 锁住电源 (PA4 = CTL) ========== */
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE); // 开启GPIOA时钟
+    
+    GPIO_InitTypeDef GPIO_InitStructure;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;      // 推挽输出
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;             // PA4 (CTL)
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOA, &GPIO_InitStructure);
+    
+    //NPN 三极管，必须输出高电平才能导通并锁住电源！
+    GPIO_SetBits(GPIOA, GPIO_Pin_4); 
+}
 
 /**
  * 长按Key3进入/退出模拟关机
- * 关机时关闭OLED并阻塞主循环，只保留按键扫描
- * 再次长按Key3唤醒，恢复显示和任务
  */
 void Power_HandleLongPress(void)
 {
     if (Key_ReadLongPress() != 3) return;   // 无长按，直接返回
 
-	/* 如果处于息屏状态，先唤醒屏幕，让用户看到提示 */
+    /* 1. 如果处于息屏状态，先唤醒屏幕，让用户看到提示 */
     if (AutoSleep_IsSleeping())
     {
-        AutoSleep_Wakeup(); // 打开OLED显示
-        Menu_Update(0);    // 刷新显示，回到当前页面（如主页）
-        Delay_ms(300);    // 短暂停顿，让用户看清界面
+        AutoSleep_Wakeup(); 
+        Menu_Update(0);    
+        Delay_ms(300);    
     }
 	
-    /* ---------- 关机流程 ---------- */
+    /* 2. 显示关机提示 */
     OLED_Clear();
     OLED_ShowString(28, 24, "POWER OFF", OLED_8X16);
     OLED_Update();
-    Delay_ms(500);
 
-	// 关闭可能正在工作的外设
+    /* 3. 立刻强制关闭所有可能正在工作的外设！ */
     LED_SetState(LED_OFF);
     Buzzer_StopAlarm();
 	
-    OLED_WriteCommand(0xAE);   // 关闭OLED显示
+    /* 4. 关闭 OLED 屏幕 */
+    OLED_WriteCommand(0xAE);   
 
-    // 等待Key3释放，避免松手后立即触发开机
+    /* 5. 等待用户松手（如果不松手，系统会在这里稍微等一下，但外设已经关了） */
     while (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_15) == 0);
 
-    /* ---------- 模拟关机循环：只检测长按开机 ---------- */
+    /* 6. 拉低 CTL (PA4)，彻底切断电源！*/
+    GPIO_ResetBits(GPIOA, GPIO_Pin_4); 
+
+    /* 7. 死循环兜底（如果由于充电宝供电导致断电不彻底，就卡在这里，功耗极低） */
     while (1)
     {
-        if (Key_ReadLongPress() == 3)
-        {
-            /* ---------- 开机流程：显示提示后直接软复位 ---------- */
-			OLED_WriteCommand(0xAF);   // 开启OLED显示
-			OLED_Clear();
-			OLED_ShowString(28, 24, "POWER ON", OLED_8X16);
-			OLED_Update();
-			Delay_ms(300);             // 短暂显示 Power On
-
-			NVIC_SystemReset();        // 软复位，重新运行程序，回到主界面（相当于按复位键？）
-			while(1);                  // 防止复位失败时继续运行（一般不会执行到这里）
-        }
-        Delay_ms(10);   // 轻微延时，降低CPU占用（不影响按键中断）
+        // 这里什么都不用做，因为电已经断了。
+        // 如果没断（例如插着充电宝），就让它永远停在这里，等待彻底断电或复位。
     }
-    // 开机后主循环会立即调用 Menu_Update 刷新界面
-} 
+}
