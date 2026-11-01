@@ -12,7 +12,7 @@
   - [硬件连接](#硬件连接)
     - [硬件清单](#硬件清单)
     - [引脚连接](#引脚连接)
-    - [实物模拟图](#实物模拟图)
+    - [实物图](#实物图)
   - [功能列表](#功能列表)
   - [软件架构](#软件架构)
     - [开发环境](#开发环境)
@@ -52,13 +52,7 @@
 - 电源管理：自动息屏、按键唤醒、抬手唤醒、模拟开关机。
 
 <div align="center">
-<p align="center">
-    <img src="./images/effect.gif" width="200"><br>
-    面包板演示效果(因gif压缩会有加速)
-  </p>
-  <br>
   <table>
-    <tr>
     <tr>
       <td align="center"><img src="./images/hardware_photo1.jpg" width="200"><br>主界面</td>
       <td align="center"><img src="./images/hardware_photo2.jpg" width="200"><br>菜单界面</td>
@@ -66,8 +60,8 @@
     </tr>
     <tr>
       <td align="center"><img src="./images/hardware_photo4.jpg" width="200"><br>手电筒界面</td>
-      <td align="center"><img src="./images/hardware_photo6.jpg" width="200"><br>游戏功能界面</td>
-      <td align="center"><img src="./images/hardware_photo7.jpg" width="200"><br>表情包界面</td>
+      <td align="center"><img src="./images/hardware_photo5.jpg" width="200"><br>游戏功能界面</td>
+      <td align="center"><img src="./images/hardware_photo6.jpg" width="200"><br>表情包界面</td>
     </tr>
   </table>
 </div>
@@ -97,13 +91,14 @@
   <br>
 </div>
 
-### 实物模拟图
+### 实物图
 <div align="center">
-<p align="center">
-    <img src="./images/3D.jpg" width="400"><br>
-    3D模拟实物图
-  </p>
-  <br>
+<table>
+    <tr>
+      <td align="center"><img src="./images/hardware_photo.jpg" width="300"><br>面包板验证</td>
+      <td align="center"><img src="./images/hardware.jpg" width="300"><br>pcb板</td>
+    </tr>
+  </table>
 </div>
 
 ---
@@ -539,7 +534,7 @@ else
 
 ---
 彩蛋
-（焊接炸板警告！）建议先焊主控再焊其他，否则硬件问题排查起来很麻烦
+（焊接炸板警告！）记录第一次焊接一定把小引脚的主控焊接好，由于虚焊出现了好多奇奇怪怪问题
 <div align="center">
 <p align="center">
     <img src="./images/error.jpg" width="150"><br>
