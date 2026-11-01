@@ -95,6 +95,7 @@ void Battery_Update(void)
 
     uint32_t voltage_mv = (uint32_t)avg * 5200 / 4095;  
     uint8_t target_percent = Calculate_Percent(voltage_mv);
+    //因为R15按电路图来是4千欧的，但是搞丢了，目前就用10千欧代替，所以让R14和R15都为10千欧
 
     // 刷新最高水位线（如果电压突破历史，说明真的在充）
     if (voltage_mv > max_voltage_mv) {
