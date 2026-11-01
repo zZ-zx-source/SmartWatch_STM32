@@ -96,7 +96,7 @@
 <table>
     <tr>
       <td align="center"><img src="./images/hardware_photo.jpg" width="300"><br>面包板验证</td>
-      <td align="center"><img src="./images/hardware.jpg" width="300"><br>pcb板</td>
+      <td align="center"><img src="./images/hardware.jpg" width="300"><br>pcb+元器件焊接</td>
     </tr>
   </table>
 </div>
@@ -533,8 +533,7 @@ else
 本项目为个人学习作品，参考了 STM32 标准库例程及社区开源资料。感谢江协科技 OLED 驱动和 MPU6050 驱动参考
 
 ---
-彩蛋
-（焊接炸板警告！）记录第一次焊接一定把小引脚的主控焊接好，由于虚焊出现了好多奇奇怪怪问题
+（焊接炸板警告！）记录第一次焊接一定把小引脚的主控焊接好（由于虚焊出现了好多奇奇怪怪问题）
 <div align="center">
 <p align="center">
     <img src="./images/error.jpg" width="150"><br>
